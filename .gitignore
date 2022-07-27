@@ -17,5 +17,8 @@
 
 dist/
 
-**/graphql/app
-**/grpc/app
+example/**/google
+example/**/graphql
+example/**/schema.graphql
+example/**/github.com
+example/**/app
