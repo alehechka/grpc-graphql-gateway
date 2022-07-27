@@ -95,7 +95,8 @@ func Gql__type_{{ .TypeName }}() *graphql.Object {
 			Description: ` + "`" + `{{ .Comment }}` + "`" + `,
 			{{- end }}
 			Fields: graphql.Fields {
-{{- range .Fields }}
+{{- if .Fields }}
+	{{- range .Fields }}
 				{{- if .IsResolve }}
 				{{ $query := .ResolveSubField $.Services }}
 				"{{ .FieldName }}": &graphql.Field{
@@ -158,6 +159,11 @@ func Gql__type_{{ .TypeName }}() *graphql.Object {
 					{{- end }}
 				},
 				{{- end }}
+	{{- end }}
+{{- else }}
+	"_": &graphql.Field{
+		Type: graphql.Boolean,
+	},			
 {{- end }}
 			},
 			{{- if .Interfaces }}
@@ -180,13 +186,19 @@ func Gql__input_{{ .TypeName }}() *graphql.InputObject {
 		gql__input_{{ .TypeName }} =  graphql.NewInputObject(graphql.InputObjectConfig{
 			Name: "{{ $.RootPackage.CamelName }}_Input_{{ .TypeName }}",
 			Fields: graphql.InputObjectConfigFieldMap{
-{{- range .Fields }}
+{{- if .Fields}}
+	{{- range .Fields }}
 				"{{ .FieldName }}": &graphql.InputObjectFieldConfig{
 					{{- if .Comment }}
 					Description: ` + "`" + `{{ .Comment }}` + "`" + `,
 					{{- end }}
 					Type: {{ .FieldTypeInput $.RootPackage.Name }},
 				},
+	{{- end }}
+{{- else }}
+	"_": &graphql.InputObjectFieldConfig{
+		Type: graphql.Boolean,
+	},
 {{- end }}
 			},
 		})

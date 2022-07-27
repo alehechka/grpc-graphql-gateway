@@ -111,10 +111,6 @@ func (g *Generator) generateFile(file *spec.File, tmpl string, services []*spec.
 	var packages []*spec.Package
 
 	for _, m := range g.messages {
-		// skip empty field message, otherwise graphql-go raise error
-		if len(m.Fields()) == 0 {
-			continue
-		}
 		if m.IsDepended(spec.DependTypeMessage, file.Package()) {
 			switch {
 			case file.Package() == m.Package():
