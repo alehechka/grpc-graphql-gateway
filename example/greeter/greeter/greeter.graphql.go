@@ -4,9 +4,9 @@ package greeter
 import (
 	"context"
 
+	"github.com/alehechka/grpc-graphql-gateway/runtime"
 	"github.com/graphql-go/graphql"
 	"github.com/pkg/errors"
-	"github.com/alehechka/grpc-graphql-gateway/runtime"
 	"google.golang.org/grpc"
 )
 
