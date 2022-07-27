@@ -255,7 +255,9 @@ Currently we don't support some Protobuf types:
 
 ## Author
 
-Yoshiaki Sugimoto
+Original Author - [Yoshiaki Sugimoto](https://github.com/ysugimoto/grpc-graphql-gateway)
+
+Due to personal requirements and certain breaking changes, this repository has been migrated into new one. Full credits for the basis of the code go to [@ysugimoto](https://github.com/ysugimoto)
 
 ## License
 

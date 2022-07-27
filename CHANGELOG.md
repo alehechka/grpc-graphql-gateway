@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## UNRELEASED
+
+- Resolve Import Issues ([#4](https://github.com/alehechka/forked-grpc-graphql-gateway/pull/4))
+- Convert module path ([#3](https://github.com/alehechka/forked-grpc-graphql-gateway/pull/3))
+- Refactor GraphqlHandler to expose host and DialOptions ([#1](https://github.com/alehechka/forked-grpc-graphql-gateway/pull/1))
+- Resolve source_relative not respecting subpath proto files ([#2](https://github.com/alehechka/forked-grpc-graphql-gateway/pull/2))
+
 ## v0.22.0
 
 - support parths=source_relative option [#51](https://github.com/ysugimoto/grpc-graphql-gateway/pull/51)
@@ -138,7 +145,7 @@ Then typename is `User_Type_User`.
 
 ### Convert field name to CamelCase option
 
-In protocol buffers, all message field name should define as *lower_snake_case* referred by [Style Guide](https://developers.google.com/protocol-buffers/docs/style#message_and_field_names). But in GraphQL Schema, typically each field name should define as *lowerCamelCase*, so we add more option in `protoc-gen-graphql`:
+In protocol buffers, all message field name should define as _lower_snake_case_ referred by [Style Guide](https://developers.google.com/protocol-buffers/docs/style#message_and_field_names). But in GraphQL Schema, typically each field name should define as _lowerCamelCase_, so we add more option in `protoc-gen-graphql`:
 
 ```shell
 protoc -I.
@@ -163,7 +170,7 @@ type User_Type_User {
 }
 ```
 
-To keep backward compatibility, compile as *lower_snake_case* as default. If you want to define any graphql field as lowerCamelCase, please supply this option.
+To keep backward compatibility, compile as _lower_snake_case_ as default. If you want to define any graphql field as lowerCamelCase, please supply this option.
 
 ## v0.12.0
 
@@ -195,7 +202,6 @@ If middleware returns `MiddlewareError`, the runtime error will be:
 ```
 {"data": null, "errors": [{"message": "Message field value of MiddlewareError", "extensions": {"code": "Code field value of MiddlewareError"}]}
 ```
-
 
 ## v0.9.1
 
