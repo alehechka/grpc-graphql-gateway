@@ -32,7 +32,7 @@ init:
 	if [ -L "./proto/google" ]; then rm ./proto/google; fi
 	if [ -L "./proto/graphql" ]; then rm ./proto/graphql; fi
 	$(LINKCMD)
-	ln -s $(shell pwd)/../..//include/graphql ./proto/graphql
+	ln -s $(shell pwd)/../..//proto/grpc-graphql-gateway/graphql ./proto/graphql
 	cd ../../ && make
 
 start: build

@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-import "graphql.proto";
+import "graphql/v1/graphql.proto";
 
 option go_package = "./;greeter";
 
