@@ -3,8 +3,7 @@ package spec
 import (
 	"strings"
 
-	// nolint: staticcheck
-	"github.com/alehechka/grpc-graphql-gateway/graphql"
+	graphql "github.com/alehechka/grpc-graphql-gateway/proto/gen/go/graphql/v1"
 	"github.com/golang/protobuf/proto"
 	descriptor "github.com/golang/protobuf/protoc-gen-go/descriptor"
 )
