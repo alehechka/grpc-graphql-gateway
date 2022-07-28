@@ -18,7 +18,7 @@ func Gql__type_Money() *graphql.Object {
 		gql__type_Money = graphql.NewObject(graphql.ObjectConfig{
 			Name: "Google_type_Money",
 			Fields: graphql.Fields{
-				"currencyCode": &graphql.Field{
+				"currency_code": &graphql.Field{
 					Type:        graphql.String,
 					Description: `The three-letter currency code defined in ISO 4217.`,
 				},
@@ -48,7 +48,7 @@ func Gql__input_Money() *graphql.InputObject {
 		gql__input_Money = graphql.NewInputObject(graphql.InputObjectConfig{
 			Name: "Google_input_Money",
 			Fields: graphql.InputObjectConfigFieldMap{
-				"currencyCode": &graphql.InputObjectFieldConfig{
+				"currency_code": &graphql.InputObjectFieldConfig{
 					Type:        graphql.String,
 					Description: `The three-letter currency code defined in ISO 4217.`,
 				},
