@@ -122,9 +122,7 @@ func (g *Generator) generateFile(file *spec.File, tmpl string, services []*spec.
 			}
 		}
 		if m.IsDepended(spec.DependTypeInput, file.Package()) {
-			if !spec.IsGooglePackage(m) {
-				inputs = append(inputs, m)
-			}
+			inputs = append(inputs, m)
 		}
 		if m.IsDepended(spec.DependTypeInterface, file.Package()) {
 			interfaces = append(interfaces, m)
