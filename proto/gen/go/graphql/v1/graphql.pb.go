@@ -121,6 +121,7 @@ func (*GraphqlService) Descriptor() ([]byte, []int) {
 // Extend MethodOptions in order to define GraphQL Query or Mutation.
 // User can use this option as following:
 //
+// ```
 // service Greeter {
 //    rpc SayHello(HelloRequest) returns (HelloReply) {
 //      option (graphql.schema) = {
@@ -129,6 +130,7 @@ func (*GraphqlService) Descriptor() ([]byte, []int) {
 //      }
 //    }
 // }
+// ```
 //
 // Since gRPC reason, it has limitation that the response could not be repeated.
 // it's dificcurl to respond array response, so that we accept "response.pluck"
@@ -136,6 +138,7 @@ func (*GraphqlService) Descriptor() ([]byte, []int) {
 //
 // For instance:
 //
+// ```
 // message Member {
 //   string name = 1;
 // }
@@ -159,9 +162,10 @@ func (*GraphqlService) Descriptor() ([]byte, []int) {
 //      }
 //    }
 // }
+// ```
 //
 // In mutation declaration:
-//
+// ```
 // service MemberService {
 //    rpc CreateMember(CreateMemberRequest) returns (Member) {
 //      option (graphql.schema) = {
@@ -170,9 +174,11 @@ func (*GraphqlService) Descriptor() ([]byte, []int) {
 //      }
 //    }
 // }
+// ```
 //
 // The Mutation's input always becomes an input object, so you need to declare argument name.
 //
+// ```
 // message Member {
 //   string name = 1;
 // }
@@ -192,6 +198,7 @@ func (*GraphqlService) Descriptor() ([]byte, []int) {
 //      }
 //    }
 // }
+// ```
 //
 // Finally, user can access this query via /graphql?query={members{name}}
 type GraphqlSchema struct {
@@ -393,6 +400,7 @@ func (x *GraphqlResponse) GetPluck() string {
 // GraphqlField is FieldOptions in protobuf in order to define type field attribute.
 // User can use this option as following:
 //
+// ```
 // message Member {
 //   string name = 1 [(graphql.field) = {required: true}]; // this field is required in GraphQL, it equivalent to String! on GraphQL
 // }
@@ -400,6 +408,7 @@ func (x *GraphqlResponse) GetPluck() string {
 // message CreateMemberRequest {
 //   string name = 1; [(grahpql.field) = {default: "anonymous"}]; // use default value on input or query
 // }
+// ```
 //
 // Note that in protobuf, all fields are dealt with optional
 // so the same as it, all GraphQL fields are optional as default.
