@@ -25,5 +25,11 @@ func PrefixInterface(name string) string {
 }
 
 func IsGooglePackage(p PackageGetter) bool {
-	return strings.HasPrefix(p.Package(), "google.protobuf")
+	pkg := p.Package()
+
+	if strings.HasPrefix(pkg, "google.protobuf") {
+		return true
+	}
+
+	return strings.HasPrefix(pkg, "google.type")
 }
