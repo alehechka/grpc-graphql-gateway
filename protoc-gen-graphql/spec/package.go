@@ -31,14 +31,7 @@ func NewPackage(g PackageGetter) *Package {
 	p.FileName = filepath.Base(p.GeneratedFilenamePrefix)
 
 	if pkg := g.GoPackage(); pkg != "" {
-		// Support custom package definitions like example.com/path/to/package:packageName
-		if index := strings.Index(pkg, ";"); index > -1 {
-			p.Name = pkg[index+1:]
-			p.Path = pkg[0:index]
-		} else {
-			p.Name = filepath.Base(pkg)
-			p.Path = pkg
-		}
+		p.Name, p.Path = ParsePackagePathName(pkg)
 	} else if pkg := g.Package(); pkg != "" {
 		p.Name = pkg
 	} else {
@@ -54,24 +47,31 @@ func NewPackage(g PackageGetter) *Package {
 }
 
 func NewGooglePackage(m PackageGetter) *Package {
-	name := filepath.Base(m.GoPackage())
+	name, _ := ParsePackagePathName(m.GoPackage())
+	packageSuffix := strings.TrimSuffix(m.Filename(), filepath.Ext(m.Filename()))
 
 	return &Package{
 		Name:      "gql_ptypes_" + strings.ToLower(name),
 		CamelName: strcase.ToCamel(name),
-		Path:      "github.com/alehechka/grpc-graphql-gateway/ptypes/" + strings.ToLower(name),
+		Path:      "github.com/alehechka/grpc-graphql-gateway/ptypes/" + strings.ToLower(packageSuffix),
 	}
 }
 
 func NewGoPackageFromString(pkg string) *Package {
 	p := &Package{}
-	// Support custom package definitions like example.com/path/to/package:packageName
-	if index := strings.Index(pkg, ";"); index > -1 {
-		p.Name = pkg[index+1:]
-		p.Path = pkg[0:index]
-	} else {
-		p.Name = filepath.Base(pkg)
-		p.Path = pkg
-	}
+	p.Name, p.Path = ParsePackagePathName(pkg)
 	return p
+}
+
+// ParsePackagePathName allows support custom package definitions like example.com/path/to/package:packageName
+func ParsePackagePathName(pkg string) (name string, path string) {
+	if index := strings.Index(pkg, ";"); index > -1 {
+		name = pkg[index+1:]
+		path = pkg[0:index]
+	} else {
+		name = filepath.Base(pkg)
+		path = pkg
+	}
+
+	return
 }
