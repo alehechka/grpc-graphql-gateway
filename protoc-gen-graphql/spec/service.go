@@ -1,7 +1,7 @@
 package spec
 
 import (
-	graphql "github.com/alehechka/grpc-graphql-gateway/proto/gen/go/graphql/v1"
+	graphql "github.com/alehechka/grpc-graphql-gateway/proto/gen/go/graphql"
 	"github.com/golang/protobuf/proto"
 	descriptor "github.com/golang/protobuf/protoc-gen-go/descriptor"
 )

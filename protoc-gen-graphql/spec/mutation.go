@@ -5,7 +5,7 @@ import (
 
 	"path/filepath"
 
-	graphql "github.com/alehechka/grpc-graphql-gateway/proto/gen/go/graphql/v1"
+	graphql "github.com/alehechka/grpc-graphql-gateway/proto/gen/go/graphql"
 	"github.com/iancoleman/strcase"
 )
 

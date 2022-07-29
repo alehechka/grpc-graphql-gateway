@@ -4,9 +4,9 @@
 // see https://opensource.org/licenses/MIT
 syntax = "proto3";
 
-package graphql.v1;
+package graphql;
 
-option go_package = "github.com/alehechka/grpc-graphql-gateway/proto/gen/go/graphql/v1;graphql";
+option go_package = "github.com/alehechka/grpc-graphql-gateway/proto/gen/go/graphql;graphql";
 
 import "google/protobuf/descriptor.proto";
 

@@ -4,7 +4,7 @@ package startwars;
 
 option go_package = "github.com/alehechka/grpc-graphql-gateway/example/starwars/spec/starwars";
 
-import "graphql/v1/graphql.proto";
+import "graphql/graphql.proto";
 import "google/protobuf/empty.proto";
 
 message Character {
@@ -77,7 +77,7 @@ service StartwarsService {
     };
   }
 
-  rpc ListHumans(ListEmptyRequest) returns (ListHumansResponse) {
+  rpc ListHumans(google.protobuf.Empty) returns (ListHumansResponse) {
     option (graphql.schema) = {
       type: QUERY
       name: "humans"

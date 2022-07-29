@@ -1,14 +1,6 @@
 .PHONY: clean all
 
-UNAME := $(shell uname)
 SPECDIR := "./spec"
-
-ifeq ($(UNAME), Darwin)
-	LINKCMD := ln -s $(shell brew --prefix protobuf)/include/google ./proto/google
-endif
-ifeq ($(UNAME), Linux)
-	LINKCMD := ln -s /usr/local/include/protobuf/google ./proto/google
-endif
 
 all: build
 
@@ -18,7 +10,8 @@ build: init
 		echo $$file; \
 		protoc \
 			-Iproto \
-			--plugin=../..//dist/protoc-gen-graphql \
+			-I../../proto/grpc-graphql-gateway \
+			--plugin=../../dist/protoc-gen-graphql \
 			--graphql_out=${SPECDIR} \
 			--graphql_opt=paths=source_relative \
 			--go_out=:${SPECDIR} \
@@ -31,8 +24,6 @@ build: init
 init:
 	if [ -L "./proto/google" ]; then rm ./proto/google; fi
 	if [ -L "./proto/graphql" ]; then rm ./proto/graphql; fi
-	$(LINKCMD)
-	ln -s $(shell pwd)/../..//proto/grpc-graphql-gateway/graphql ./proto/graphql
 	cd ../../ && make
 
 start: build
