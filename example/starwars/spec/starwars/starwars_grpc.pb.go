@@ -11,7 +11,6 @@ import (
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
-	emptypb "google.golang.org/protobuf/types/known/emptypb"
 )
 
 // This is a compile-time assertion to ensure that this generated file
@@ -26,7 +25,7 @@ type StartwarsServiceClient interface {
 	GetHero(ctx context.Context, in *GetHeroRequest, opts ...grpc.CallOption) (*Character, error)
 	GetHuman(ctx context.Context, in *GetHumanRequest, opts ...grpc.CallOption) (*Character, error)
 	GetDroid(ctx context.Context, in *GetDroidRequest, opts ...grpc.CallOption) (*Character, error)
-	ListHumans(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*ListHumansResponse, error)
+	ListHumans(ctx context.Context, in *ListEmptyRequest, opts ...grpc.CallOption) (*ListHumansResponse, error)
 	ListDroids(ctx context.Context, in *ListEmptyRequest, opts ...grpc.CallOption) (*ListDroidsResponse, error)
 }
 
@@ -65,7 +64,7 @@ func (c *startwarsServiceClient) GetDroid(ctx context.Context, in *GetDroidReque
 	return out, nil
 }
 
-func (c *startwarsServiceClient) ListHumans(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*ListHumansResponse, error) {
+func (c *startwarsServiceClient) ListHumans(ctx context.Context, in *ListEmptyRequest, opts ...grpc.CallOption) (*ListHumansResponse, error) {
 	out := new(ListHumansResponse)
 	err := c.cc.Invoke(ctx, "/startwars.StartwarsService/ListHumans", in, out, opts...)
 	if err != nil {
@@ -90,7 +89,7 @@ type StartwarsServiceServer interface {
 	GetHero(context.Context, *GetHeroRequest) (*Character, error)
 	GetHuman(context.Context, *GetHumanRequest) (*Character, error)
 	GetDroid(context.Context, *GetDroidRequest) (*Character, error)
-	ListHumans(context.Context, *emptypb.Empty) (*ListHumansResponse, error)
+	ListHumans(context.Context, *ListEmptyRequest) (*ListHumansResponse, error)
 	ListDroids(context.Context, *ListEmptyRequest) (*ListDroidsResponse, error)
 	mustEmbedUnimplementedStartwarsServiceServer()
 }
@@ -108,7 +107,7 @@ func (UnimplementedStartwarsServiceServer) GetHuman(context.Context, *GetHumanRe
 func (UnimplementedStartwarsServiceServer) GetDroid(context.Context, *GetDroidRequest) (*Character, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetDroid not implemented")
 }
-func (UnimplementedStartwarsServiceServer) ListHumans(context.Context, *emptypb.Empty) (*ListHumansResponse, error) {
+func (UnimplementedStartwarsServiceServer) ListHumans(context.Context, *ListEmptyRequest) (*ListHumansResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListHumans not implemented")
 }
 func (UnimplementedStartwarsServiceServer) ListDroids(context.Context, *ListEmptyRequest) (*ListDroidsResponse, error) {
@@ -182,7 +181,7 @@ func _StartwarsService_GetDroid_Handler(srv interface{}, ctx context.Context, de
 }
 
 func _StartwarsService_ListHumans_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(emptypb.Empty)
+	in := new(ListEmptyRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -194,7 +193,7 @@ func _StartwarsService_ListHumans_Handler(srv interface{}, ctx context.Context, 
 		FullMethod: "/startwars.StartwarsService/ListHumans",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(StartwarsServiceServer).ListHumans(ctx, req.(*emptypb.Empty))
+		return srv.(StartwarsServiceServer).ListHumans(ctx, req.(*ListEmptyRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }

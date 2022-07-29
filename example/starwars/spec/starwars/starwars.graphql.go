@@ -4,7 +4,6 @@ package starwars
 import (
 	"context"
 
-	gql_ptypes_emptypb "github.com/alehechka/grpc-graphql-gateway/ptypes/google/protobuf/empty"
 	"github.com/alehechka/grpc-graphql-gateway/runtime"
 	"github.com/graphql-go/graphql"
 	"github.com/pkg/errors"
@@ -453,7 +452,7 @@ func (x *graphql__resolver_StartwarsService) GetQueries(conn *grpc.ClientConn) g
 			Type: graphql.NewList(Gql__type_Character()),
 			Args: graphql.FieldConfigArgument{},
 			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
-				var req gql_ptypes_emptypb.Empty
+				var req ListEmptyRequest
 				if err := runtime.MarshalRequest(p.Args, &req, false); err != nil {
 					return nil, errors.Wrap(err, "Failed to marshal request for humans")
 				}
