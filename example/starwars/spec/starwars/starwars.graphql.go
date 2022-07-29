@@ -15,12 +15,14 @@ var (
 	gql__enum_Episode             *graphql.Enum        // enum Episode in starwars/starwars.proto
 	gql__interface_Character      *graphql.Interface   // message Character in starwars/starwars.proto
 	gql__type_ListHumansResponse  *graphql.Object      // message ListHumansResponse in starwars/starwars.proto
+	gql__type_ListEmptyRequest    *graphql.Object      // message ListEmptyRequest in starwars/starwars.proto
 	gql__type_ListDroidsResponse  *graphql.Object      // message ListDroidsResponse in starwars/starwars.proto
 	gql__type_GetHumanRequest     *graphql.Object      // message GetHumanRequest in starwars/starwars.proto
 	gql__type_GetHeroRequest      *graphql.Object      // message GetHeroRequest in starwars/starwars.proto
 	gql__type_GetDroidRequest     *graphql.Object      // message GetDroidRequest in starwars/starwars.proto
 	gql__type_Character           *graphql.Object      // message Character in starwars/starwars.proto
 	gql__input_ListHumansResponse *graphql.InputObject // message ListHumansResponse in starwars/starwars.proto
+	gql__input_ListEmptyRequest   *graphql.InputObject // message ListEmptyRequest in starwars/starwars.proto
 	gql__input_ListDroidsResponse *graphql.InputObject // message ListDroidsResponse in starwars/starwars.proto
 	gql__input_GetHumanRequest    *graphql.InputObject // message GetHumanRequest in starwars/starwars.proto
 	gql__input_GetHeroRequest     *graphql.InputObject // message GetHeroRequest in starwars/starwars.proto
@@ -112,6 +114,20 @@ func Gql__type_ListHumansResponse() *graphql.Object {
 		})
 	}
 	return gql__type_ListHumansResponse
+}
+
+func Gql__type_ListEmptyRequest() *graphql.Object {
+	if gql__type_ListEmptyRequest == nil {
+		gql__type_ListEmptyRequest = graphql.NewObject(graphql.ObjectConfig{
+			Name: "Starwars_Type_ListEmptyRequest",
+			Fields: graphql.Fields{
+				"_": &graphql.Field{
+					Type: graphql.Boolean,
+				},
+			},
+		})
+	}
+	return gql__type_ListEmptyRequest
 }
 
 func Gql__type_ListDroidsResponse() *graphql.Object {
@@ -220,6 +236,20 @@ func Gql__input_ListHumansResponse() *graphql.InputObject {
 		})
 	}
 	return gql__input_ListHumansResponse
+}
+
+func Gql__input_ListEmptyRequest() *graphql.InputObject {
+	if gql__input_ListEmptyRequest == nil {
+		gql__input_ListEmptyRequest = graphql.NewInputObject(graphql.InputObjectConfig{
+			Name: "Starwars_Input_ListEmptyRequest",
+			Fields: graphql.InputObjectConfigFieldMap{
+				"_": &graphql.InputObjectFieldConfig{
+					Type: graphql.Boolean,
+				},
+			},
+		})
+	}
+	return gql__input_ListEmptyRequest
 }
 
 func Gql__input_ListDroidsResponse() *graphql.InputObject {

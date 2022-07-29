@@ -11,7 +11,7 @@ import (
 	"io/ioutil"
 	"text/template"
 
-	graphql "github.com/alehechka/grpc-graphql-gateway/proto/gen/go/graphql/v1"
+	graphql "github.com/alehechka/grpc-graphql-gateway/proto/gen/go/graphql"
 	"github.com/alehechka/grpc-graphql-gateway/protoc-gen-graphql/spec"
 	"github.com/golang/protobuf/proto"
 	descriptor "github.com/golang/protobuf/protoc-gen-go/descriptor"
@@ -122,9 +122,7 @@ func (g *Generator) generateFile(file *spec.File, tmpl string, services []*spec.
 			}
 		}
 		if m.IsDepended(spec.DependTypeInput, file.Package()) {
-			if !spec.IsGooglePackage(m) {
-				inputs = append(inputs, m)
-			}
+			inputs = append(inputs, m)
 		}
 		if m.IsDepended(spec.DependTypeInterface, file.Package()) {
 			interfaces = append(interfaces, m)
