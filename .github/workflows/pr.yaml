@@ -27,12 +27,12 @@ jobs:
         with:
           input: proto
 
+      - name: Build Protobuf sources
+        run: buf build
+        working-directory: proto
+
       - name: Breaking Change Detection
         uses: bufbuild/buf-breaking-action@v1
         with:
           input: proto
           against: 'https://github.com/alehechka/grpc-graphql-gateway.git#branch=main,subdir=proto'
-
-      - name: Build Protobuf sources
-        run: buf build
-        working-directory: proto
