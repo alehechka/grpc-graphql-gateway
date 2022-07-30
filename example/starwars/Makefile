@@ -39,3 +39,11 @@ start_graphql:
 
 start_grpc:
 	go run app/grpc/main.go
+
+build_graphql:
+	go build -o app/graphql/ app/graphql/main.go
+
+build_grpc:
+	go build -o app/grpc/ app/grpc/main.go
+
+build_all: build build_grpc build_graphql
