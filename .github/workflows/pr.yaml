@@ -24,10 +24,13 @@ jobs:
 
       - name: Lint Protobuf sources
         uses: bufbuild/buf-lint-action@v1
+        with:
+          input: proto
 
       - name: Breaking Change Detection
-        uses: bufbuild/buf-break-action@v1
+        uses: bufbuild/buf-breaking-action@v1
         with:
+          input: proto
           against: 'https://github.com/alehechka/grpc-graphql-gateway.git#branch=main'
 
       - name: Build Protobuf sources
