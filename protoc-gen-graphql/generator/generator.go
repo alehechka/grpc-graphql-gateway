@@ -325,13 +325,13 @@ func (g *Generator) analyzeService(f *spec.File, s *spec.Service) error {
 		}
 
 		switch m.Schema.GetType() {
-		case graphql.GraphqlType_GRAPHQL_TYPE_UNSPECIFIED, graphql.GraphqlType_GRAPHQL_TYPE_QUERY, graphql.GraphqlType_GRAPHQL_TYPE_RESOLVER:
+		case graphql.GraphqlType_QUERY, graphql.GraphqlType_RESOLVER:
 			q := spec.NewQuery(m, input, output, g.args.FieldCamelCase)
 			if err := g.analyzeQuery(f, q); err != nil {
 				return err
 			}
 			s.Queries = append(s.Queries, q)
-		case graphql.GraphqlType_GRAPHQL_TYPE_MUTATION:
+		case graphql.GraphqlType_MUTATION:
 			mu := spec.NewMutation(m, input, output, g.args.FieldCamelCase)
 			if err := g.analyzeMutation(f, mu); err != nil {
 				return err
