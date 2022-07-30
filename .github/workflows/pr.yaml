@@ -1,0 +1,35 @@
+name: Pull Request Verification
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+# Kill the workflow if the PR is updated with a new commit
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  buf:
+    name: Verify buf
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+
+      - name: Setup buf CLI
+        uses: bufbuild/buf-setup-action@v1
+
+      - name: Lint Protobuf sources
+        uses: bufbuild/buf-lint-action@v1
+
+      - name: Breaking Change Detection
+        uses: bufbuild/buf-break-action@v1
+        with:
+          against: 'https://github.com/alehechka/grpc-graphql-gateway.git#branch=main'
+
+      - name: Build Protobuf sources
+        run: buf build
+        working-directory: proto
