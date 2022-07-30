@@ -33,9 +33,18 @@ jobs:
 
       - name: Breaking Change Detection
         uses: bufbuild/buf-breaking-action@v1
+        id: breaking
         with:
           input: proto
           against: 'https://github.com/alehechka/grpc-graphql-gateway.git#branch=main,subdir=proto'
+
+      - name: Comment PR
+        uses: mshick/add-pr-comment@v1
+        if: failure() # && steps.build.outcome == 'success'
+        with:
+          message: ${{ steps.breaking.outputs.results }}
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          repo-token-user-login: 'github-actions[bot]'
 
   protoc:
     name: Verify examples
@@ -48,7 +57,7 @@ jobs:
       - name: Install Protoc
         uses: arduino/setup-protoc@v1
         with:
-          version: '3.21.4'
+          # version: '3.21.4'
           repo-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup Go
