@@ -5,7 +5,7 @@ go 1.18
 require (
 	github.com/golang/protobuf v1.5.2
 	github.com/graphql-go/graphql v0.8.0
-	github.com/iancoleman/strcase v0.0.0-20191112232945-16388991a334
+	github.com/iancoleman/strcase v0.2.0
 	github.com/pkg/errors v0.9.1
 	github.com/stretchr/testify v1.8.0
 	google.golang.org/grpc v1.48.0
