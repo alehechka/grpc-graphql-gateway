@@ -1,11 +1,24 @@
 # CHANGELOG
 
-## UNRELEASED
+## [v0.2.1](https://github.com/alehechka/grpc-graphql-gateway/releases/tag/v0.2.1)
+
+- Containerize plugin for remote code generation via buf.build ([#5](https://github.com/alehechka/grpc-graphql-gateway/pull/5))
+
+## [v0.2.0](https://github.com/alehechka/grpc-graphql-gateway/releases/tag/v0.2.0)
+
+- Resolve errant self imported package functions ([#1](https://github.com/alehechka/grpc-graphql-gateway/pull/1))
+- Generate GraphQL types for empty proto messages ([#2](https://github.com/alehechka/grpc-graphql-gateway/pull/2))
+- Allow Generation via buf.build and remote BSR proto dependency for graphql.proto by ([#3](https://github.com/alehechka/grpc-graphql-gateway/pull/3))
+- Generate google/protobuf GraphQL types by ([#4](https://github.com/alehechka/grpc-graphql-gateway/pull/4))
+
+## [v0.1.0](https://github.com/alehechka/grpc-graphql-gateway/releases/tag/v0.1.0)
 
 - Resolve Import Issues ([#4](https://github.com/alehechka/forked-grpc-graphql-gateway/pull/4))
 - Convert module path ([#3](https://github.com/alehechka/forked-grpc-graphql-gateway/pull/3))
 - Refactor GraphqlHandler to expose host and DialOptions ([#1](https://github.com/alehechka/forked-grpc-graphql-gateway/pull/1))
 - Resolve source_relative not respecting subpath proto files ([#2](https://github.com/alehechka/forked-grpc-graphql-gateway/pull/2))
+
+# Original Changelog for [ysugimoto/grpc-graphql-gateway](https://github.com/ysugimoto/grpc-graphql-gateway)
 
 ## v0.22.0
 
