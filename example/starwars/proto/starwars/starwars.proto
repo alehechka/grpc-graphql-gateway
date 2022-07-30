@@ -57,28 +57,28 @@ message ListDroidsResponse {
 service StartwarsService {
   rpc GetHero(GetHeroRequest) returns (Character) {
     option (graphql.schema) = {
-      type: QUERY
+      type: GRAPHQL_TYPE_QUERY
       name: "hero"
     };
   }
 
   rpc GetHuman(GetHumanRequest) returns (Character) {
     option (graphql.schema) = {
-      type: QUERY
+      type: GRAPHQL_TYPE_QUERY
       name: "human"
     };
   }
 
   rpc GetDroid(GetDroidRequest) returns (Character) {
     option (graphql.schema) = {
-      type: QUERY
+      type: GRAPHQL_TYPE_QUERY
       name: "droid"
     };
   }
 
   rpc ListHumans(ListEmptyRequest) returns (ListHumansResponse) {
     option (graphql.schema) = {
-      type: QUERY
+      type: GRAPHQL_TYPE_QUERY
       name: "humans"
       response {
         pluck: "humans"
@@ -88,7 +88,7 @@ service StartwarsService {
 
   rpc ListDroids(ListEmptyRequest) returns (ListDroidsResponse) {
     option (graphql.schema) = {
-      type: QUERY
+      type: GRAPHQL_TYPE_QUERY
       name: "droids"
       response {
         pluck: "droids"

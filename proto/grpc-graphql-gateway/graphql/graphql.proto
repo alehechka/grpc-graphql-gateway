@@ -134,12 +134,14 @@ message GraphqlResponse {
 
 // explicit schema declaration enum
 enum GraphqlType {
+  // unspecified will default to generate as Query
+  GRAPHQL_TYPE_UNSPECIFIED = 0;
   // schema will generate as Query
-  QUERY = 0;
+  GRAPHQL_TYPE_QUERY = 1;
   // schema will generate as Mutation
-  MUTATION = 1;
+  GRAPHQL_TYPE_MUTATION = 2;
   // schema will generate as Resolver. Resolver behaves not listed in query, but can resolve nested field.
-  RESOLVER = 2;
+  GRAPHQL_TYPE_RESOLVER = 3;
 }
 
 // GraphqlField is FieldOptions in protobuf in order to define type field attribute.
