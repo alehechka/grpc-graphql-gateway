@@ -38,14 +38,6 @@ jobs:
           input: proto
           against: 'https://github.com/alehechka/grpc-graphql-gateway.git#branch=main,subdir=proto'
 
-      - name: Comment PR
-        uses: mshick/add-pr-comment@v1
-        if: failure() # && steps.build.outcome == 'success'
-        with:
-          message: ${{ steps.breaking.outputs.results }}
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-          repo-token-user-login: 'github-actions[bot]'
-
   protoc:
     name: Verify examples
     runs-on: ubuntu-latest
