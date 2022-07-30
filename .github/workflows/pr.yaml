@@ -68,6 +68,9 @@ jobs:
         with:
           go-version: '>=1.18.0'
 
+      - name: Download Module Dependencies
+        run: go mod download
+
       - name: Install protobuf plugins
         run: |
           go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.28 
@@ -78,5 +81,5 @@ jobs:
         working-directory: example/starwars
 
       - name: Build example/greeter
-        run: build_all
+        run: make build_all
         working-directory: example/greeter
