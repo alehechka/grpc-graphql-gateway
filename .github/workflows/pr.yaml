@@ -49,6 +49,7 @@ jobs:
         uses: arduino/setup-protoc@v1
         with:
           version: '3.21.4'
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup Go
         uses: actions/setup-go@v3
