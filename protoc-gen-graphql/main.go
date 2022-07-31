@@ -10,6 +10,7 @@ import (
 	// nolint: staticcheck
 	"github.com/alehechka/grpc-graphql-gateway/protoc-gen-graphql/generator"
 	"github.com/alehechka/grpc-graphql-gateway/protoc-gen-graphql/spec"
+	"github.com/alehechka/grpc-graphql-gateway/protoc-gen-graphql/template"
 	"github.com/golang/protobuf/proto"
 	plugin "github.com/golang/protobuf/protoc-gen-go/plugin"
 )
@@ -82,7 +83,7 @@ func main() {
 		}
 	}
 	if len(ftg) > 0 {
-		genFiles, err := g.Generate(goTemplate, ftg)
+		genFiles, err := g.Generate(template.GoTemplate, ftg)
 		if err != nil {
 			genError = err
 			return

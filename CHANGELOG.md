@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## [v0.2.3](https://github.com/alehechka/grpc-graphql-gateway/releases/tag/v0.2.3)
+
+- Resolve issues with goreleaser action [v0.2.3] ([#11](https://github.com/alehechka/grpc-graphql-gateway/pull/11))
+
 ## [v0.2.2](https://github.com/alehechka/grpc-graphql-gateway/releases/tag/v0.2.2)
 
 - GitHub Action Workflows - Pull Request Verification ([#7](https://github.com/alehechka/grpc-graphql-gateway/pull/7))
