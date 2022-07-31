@@ -33,7 +33,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   push_bsr_plugins:
-    if: github.ref_type == tag
+    if: github.ref_type == 'tag'
     runs-on: ubuntu-latest
 
     steps:
