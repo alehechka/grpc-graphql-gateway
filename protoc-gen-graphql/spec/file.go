@@ -7,6 +7,7 @@ import (
 
 	descriptor "github.com/golang/protobuf/protoc-gen-go/descriptor"
 	plugin "github.com/golang/protobuf/protoc-gen-go/plugin"
+	"google.golang.org/protobuf/types/pluginpb"
 )
 
 // File spec wraps FileDescriptorProto
@@ -22,24 +23,52 @@ type File struct {
 
 	isCamel bool
 
+	compilerVersion *plugin.Version
+	pluginVersion   string
+}
+
+type FileConfig struct {
+	IsCamel         bool
 	CompilerVersion *plugin.Version
+	PluginVersion   string
+}
+
+func (c *FileConfig) GetIsCamel() bool {
+	if c != nil {
+		return c.IsCamel
+	}
+	return false
+}
+
+func (c *FileConfig) GetCompilerVersion() *plugin.Version {
+	if c != nil {
+		return c.CompilerVersion
+	}
+	return nil
+}
+
+func (c *FileConfig) GetPluginVersion() string {
+	if c != nil {
+		return c.PluginVersion
+	}
+	return ""
 }
 
 func NewFile(
 	d *descriptor.FileDescriptorProto,
-	cv *plugin.Version,
-	isCamel bool,
+	config *FileConfig,
 ) *File {
 
 	f := &File{
-		CompilerVersion: cv,
+		compilerVersion: config.GetCompilerVersion(),
+		pluginVersion:   config.GetPluginVersion(),
 		descriptor:      d,
 		comments:        makeComments(d),
 
 		services: make([]*Service, 0),
 		messages: make([]*Message, 0),
 		enums:    make([]*Enum, 0),
-		isCamel:  isCamel,
+		isCamel:  config.GetIsCamel(),
 	}
 	for i, s := range d.GetService() {
 		f.services = append(f.services, NewService(s, f, 6, i))
@@ -122,6 +151,20 @@ func (f *File) getComment(paths []int) string {
 
 	if v, ok := f.comments[b.String()]; ok {
 		return strings.ReplaceAll(strings.TrimSpace(v), "`", "`+\"`\"+`")
+	}
+	return ""
+}
+
+func (f *File) CompilerVersion() *pluginpb.Version {
+	if f != nil {
+		return f.compilerVersion
+	}
+	return nil
+}
+
+func (f *File) PluginVersion() string {
+	if f != nil {
+		return f.pluginVersion
 	}
 	return ""
 }

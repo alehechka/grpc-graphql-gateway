@@ -72,7 +72,11 @@ func main() {
 	// in order to access easily plugin options, package name, comment, etc...
 	var files []*spec.File
 	for _, f := range req.GetProtoFile() {
-		files = append(files, spec.NewFile(f, req.GetCompilerVersion(), args.FieldCamelCase))
+		files = append(files, spec.NewFile(f, &spec.FileConfig{
+			IsCamel:         args.FieldCamelCase,
+			CompilerVersion: req.GetCompilerVersion(),
+			PluginVersion:   version,
+		}))
 	}
 
 	g := generator.New(files, args)
