@@ -5,8 +5,8 @@ import (
 	"path/filepath"
 	"strings"
 
+	plugin "github.com/golang/protobuf/protoc-gen-go/plugin"
 	"github.com/iancoleman/strcase"
-	"google.golang.org/protobuf/types/pluginpb"
 )
 
 const (
@@ -20,7 +20,7 @@ type PackageGetter interface {
 }
 
 type Versionable interface {
-	CompilerVersion() *pluginpb.Version
+	CompilerVersion() *plugin.Version
 	PluginVersion() string
 }
 
@@ -90,7 +90,7 @@ func ParsePackagePathName(pkg string) (name string, path string) {
 	return
 }
 
-func compilerVersionString(cv *pluginpb.Version) string {
+func compilerVersionString(cv *plugin.Version) string {
 	if isBufCompiled(cv) {
 		return "(unknown)"
 	}

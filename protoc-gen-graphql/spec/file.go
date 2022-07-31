@@ -7,7 +7,6 @@ import (
 
 	descriptor "github.com/golang/protobuf/protoc-gen-go/descriptor"
 	plugin "github.com/golang/protobuf/protoc-gen-go/plugin"
-	"google.golang.org/protobuf/types/pluginpb"
 )
 
 // File spec wraps FileDescriptorProto
@@ -155,7 +154,7 @@ func (f *File) getComment(paths []int) string {
 	return ""
 }
 
-func (f *File) CompilerVersion() *pluginpb.Version {
+func (f *File) CompilerVersion() *plugin.Version {
 	if f != nil {
 		return f.compilerVersion
 	}
