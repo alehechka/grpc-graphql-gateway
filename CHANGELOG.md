@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## [v0.2.4](https://github.com/alehechka/grpc-graphql-gateway/releases/tag/v0.2.4)
+
+- Add compiler and plugin version info to header comment ([#12](https://github.com/alehechka/grpc-graphql-gateway/pull/12))
+
 ## [v0.2.3](https://github.com/alehechka/grpc-graphql-gateway/releases/tag/v0.2.3)
 
 - Resolve issues with goreleaser action [v0.2.3] ([#11](https://github.com/alehechka/grpc-graphql-gateway/pull/11))
