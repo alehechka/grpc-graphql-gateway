@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## [v0.2.2](https://github.com/alehechka/grpc-graphql-gateway/releases/tag/v0.2.2)
+
+- GitHub Action Workflows - Pull Request Verification ([#7](https://github.com/alehechka/grpc-graphql-gateway/pull/7))
+- GitHub Action Workflows - Tagged Releases ([#9](https://github.com/alehechka/grpc-graphql-gateway/pull/9))
+
 ## [v0.2.1](https://github.com/alehechka/grpc-graphql-gateway/releases/tag/v0.2.1)
 
 - Containerize plugin for remote code generation via buf.build ([#5](https://github.com/alehechka/grpc-graphql-gateway/pull/5))
