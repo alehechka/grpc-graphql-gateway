@@ -4,8 +4,6 @@ on:
   push:
     tags:
       - 'v[0-9]+.[0-9]+.[0-9]+'
-    branches:
-      - 'bugfix/*'
 
 permissions:
   contents: read
@@ -28,7 +26,7 @@ jobs:
 
       - uses: goreleaser/goreleaser-action@v3
         with:
-          args: release --rm-dist --skip-docker --skip-publish
+          args: release --rm-dist --skip-docker
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
