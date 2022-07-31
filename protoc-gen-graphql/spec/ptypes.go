@@ -25,13 +25,13 @@ var supportedGoogleTypes = []string{
 	"money",
 }
 
-func getSupportedPtypeNames(cv *plugin.Version) []string {
-	// TODO: buf.build does not currently supply a version and thus must be accounted for to use google.protobuf graphql types correctly
-	if cv.GetMajor() == 0 && cv.GetMinor() == 0 && cv.GetPatch() == 0 && cv.GetSuffix() == "" {
-		return supportedProtobufTypesLaterV3_14_0
-	}
+// TODO: buf.build does not currently supply a version and thus must be accounted for to use google.protobuf graphql types correctly
+func isBufCompiled(cv *plugin.Version) bool {
+	return cv.GetMajor() == 0 && cv.GetMinor() == 0 && cv.GetPatch() == 0 && cv.GetSuffix() == ""
+}
 
-	if cv.GetMajor() >= 3 && cv.GetMinor() >= 14 {
+func getSupportedPtypeNames(cv *plugin.Version) []string {
+	if isBufCompiled(cv) || cv.GetMajor() >= 3 && cv.GetMinor() >= 14 {
 		return supportedProtobufTypesLaterV3_14_0
 	}
 	return supportedProtobufTypes
@@ -42,7 +42,7 @@ func getImplementedPtypes(m *Message) (string, error) {
 
 	var found bool
 	if pkg := m.Package(); pkg == "google.protobuf" {
-		for _, v := range getSupportedPtypeNames(m.CompilerVersion) {
+		for _, v := range getSupportedPtypeNames(m.CompilerVersion()) {
 			if ptype == v {
 				found = true
 			}

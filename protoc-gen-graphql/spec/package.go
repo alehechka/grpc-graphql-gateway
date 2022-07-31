@@ -1,9 +1,11 @@
 package spec
 
 import (
+	"fmt"
 	"path/filepath"
 	"strings"
 
+	plugin "github.com/golang/protobuf/protoc-gen-go/plugin"
 	"github.com/iancoleman/strcase"
 )
 
@@ -17,18 +19,30 @@ type PackageGetter interface {
 	Filename() string
 }
 
+type Versionable interface {
+	CompilerVersion() *plugin.Version
+	PluginVersion() string
+}
+
 type Package struct {
 	Name                    string
 	CamelName               string
 	Path                    string
 	GeneratedFilenamePrefix string
 	FileName                string
+	CompilerVersion         string
+	PluginVersion           string
 }
 
 func NewPackage(g PackageGetter) *Package {
 	p := &Package{}
 	p.GeneratedFilenamePrefix = strings.TrimSuffix(g.Filename(), filepath.Ext(g.Filename()))
 	p.FileName = filepath.Base(p.GeneratedFilenamePrefix)
+
+	if c, ok := g.(Versionable); ok {
+		p.CompilerVersion = compilerVersionString(c.CompilerVersion())
+		p.PluginVersion = c.PluginVersion()
+	}
 
 	if pkg := g.GoPackage(); pkg != "" {
 		p.Name, p.Path = ParsePackagePathName(pkg)
@@ -74,4 +88,17 @@ func ParsePackagePathName(pkg string) (name string, path string) {
 	}
 
 	return
+}
+
+func compilerVersionString(cv *plugin.Version) string {
+	if isBufCompiled(cv) {
+		return "(unknown)"
+	}
+
+	ver := fmt.Sprintf("v%d.%d.%d", cv.GetMajor(), cv.GetMinor(), cv.GetPatch())
+	if suffix := cv.GetSuffix(); len(suffix) > 0 {
+		ver += fmt.Sprintf("-%s", suffix)
+	}
+
+	return ver
 }
