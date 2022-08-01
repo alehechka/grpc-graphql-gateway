@@ -76,7 +76,7 @@ func NewFile(
 		f.messages = append(f.messages, f.messagesRecursive(m, []string{}, 4, i)...)
 	}
 	for i, e := range d.GetEnumType() {
-		f.enums = append(f.enums, NewEnum(e, f, []string{}, 5, i))
+		f.enums = append(f.enums, NewEnum(e, f, []string{}, f.isCamel, 5, i))
 	}
 	return f
 }
@@ -108,7 +108,7 @@ func (f *File) messagesRecursive(d *descriptor.DescriptorProto, prefix []string,
 	for i, e := range d.GetEnumType() {
 		p := make([]int, len(paths))
 		copy(p, paths)
-		f.enums = append(f.enums, NewEnum(e, f, prefix, append(p, 5, i)...))
+		f.enums = append(f.enums, NewEnum(e, f, prefix, f.isCamel, append(p, 5, i)...))
 	}
 
 	for i, m := range d.GetNestedType() {

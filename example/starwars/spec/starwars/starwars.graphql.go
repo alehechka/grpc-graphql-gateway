@@ -41,10 +41,10 @@ func Gql__enum_Type() *graphql.Enum {
 			Name: "Starwars_Enum_Type",
 			Values: graphql.EnumValueConfigMap{
 				"HUMAN": &graphql.EnumValueConfig{
-					Value: Type(0),
+					Value: int32(0),
 				},
 				"DROID": &graphql.EnumValueConfig{
-					Value: Type(1),
+					Value: int32(1),
 				},
 			},
 		})
@@ -58,16 +58,16 @@ func Gql__enum_Episode() *graphql.Enum {
 			Name: "Starwars_Enum_Episode",
 			Values: graphql.EnumValueConfigMap{
 				"_": &graphql.EnumValueConfig{
-					Value: Episode(0),
+					Value: int32(0),
 				},
 				"NEWHOPE": &graphql.EnumValueConfig{
-					Value: Episode(1),
+					Value: int32(1),
 				},
 				"EMPIRE": &graphql.EnumValueConfig{
-					Value: Episode(2),
+					Value: int32(2),
 				},
 				"JEDI": &graphql.EnumValueConfig{
-					Value: Episode(3),
+					Value: int32(3),
 				},
 			},
 		})
