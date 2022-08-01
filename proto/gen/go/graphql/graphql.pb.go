@@ -422,7 +422,6 @@ type GraphqlField struct {
 	Required bool `protobuf:"varint,1,opt,name=required,proto3" json:"required,omitempty"`
 	// DEPRECATED
 	// Use default `json_name` to supply custom name for graphql fields
-	// Must be generated with `field_json`.
 	//
 	// Deprecated: Do not use.
 	Name string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`

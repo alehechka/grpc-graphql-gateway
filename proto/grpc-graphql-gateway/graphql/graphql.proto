@@ -163,7 +163,6 @@ message GraphqlField {
   bool required = 1;
   // DEPRECATED
   // Use default `json_name` to supply custom name for graphql fields
-  // Must be generated with `field_json`.
   string name = 2 [deprecated = true];
   // Define default value on input.
   string default = 3;
