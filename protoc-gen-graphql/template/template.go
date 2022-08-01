@@ -50,7 +50,7 @@ func Gql__enum_{{ .Name }}() *graphql.Enum {
 					{{- if .Comment }}
 					Description: ` + "`" + `{{ .Comment }}` + "`" + `,
 					{{- end }}
-					Value: {{ $enum.Name }}({{ .Number }}),
+					Value: {{ if .IsCamel }}int32{{ else }}{{ $enum.Name }}{{ end }}({{ .Number }}),
 				},
 {{- end }}
 			},

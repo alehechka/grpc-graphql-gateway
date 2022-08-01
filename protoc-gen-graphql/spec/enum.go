@@ -22,6 +22,7 @@ func NewEnum(
 	d *descriptor.EnumDescriptorProto,
 	f *File,
 	prefix []string,
+	isCamel bool,
 	paths ...int,
 ) *Enum {
 
@@ -37,7 +38,7 @@ func NewEnum(
 	for i, v := range d.GetValue() {
 		ps := make([]int, len(paths))
 		copy(ps, paths)
-		e.values = append(e.values, NewEnumValue(v, f, append(ps, 2, i)...))
+		e.values = append(e.values, NewEnumValue(v, f, isCamel, append(ps, 2, i)...))
 	}
 	return e
 }
