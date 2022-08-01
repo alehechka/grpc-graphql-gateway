@@ -25,6 +25,7 @@ lint:
 	golangci-lint run
 
 test:
+	cd runtime/tests ; make build
 	go list ./... | xargs go test
 
 build: test plugin
@@ -41,3 +42,7 @@ compile:
 
 compile_mac:
 	cd ${GRAPHQL_CMD} && GOOS=darwin GOARCH=arm64 go build -ldflags "-X main.version=${VERSION}" -o ${GOPATH}/bin/${GRAPHQL_CMD}
+
+build_examples:
+	cd example/starwars ; make build_all
+	cd example/greeter ; make build_all

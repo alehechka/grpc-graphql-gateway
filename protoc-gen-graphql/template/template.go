@@ -50,7 +50,7 @@ func Gql__enum_{{ .Name }}() *graphql.Enum {
 					{{- if .Comment }}
 					Description: ` + "`" + `{{ .Comment }}` + "`" + `,
 					{{- end }}
-					Value: {{ if .IsCamel }}int32{{ else }}{{ $enum.Name }}{{ end }}({{ .Number }}),
+					Value: {{ if .UseJsonName }}int32{{ else }}{{ $enum.Name }}{{ end }}({{ .Number }}),
 				},
 {{- end }}
 			},
@@ -124,9 +124,9 @@ func Gql__type_{{ .TypeName }}() *graphql.Object {
 						},
 						Resolve: func(p graphql.ResolveParams) (interface{}, error) {
 							var req {{ $query.InputType }}
-							if err := runtime.MarshalRequest(p.Source, &req, {{ if $query.IsCamel }}true{{ else }}false{{ end }}); err != nil {
+							if err := runtime.MarshalRequest(p.Source, &req); err != nil {
 								return nil, errors.Wrap(err, "Failed to marshal resolver source for {{ $query.QueryName }}")
-							} else if err = runtime.MarshalRequest(p.Args, &req, {{ if $query.IsCamel }}true{{ else }}false{{ end }}); err != nil {
+							} else if err = runtime.MarshalRequest(p.Args, &req); err != nil {
 								return nil, errors.Wrap(err, "Failed to marshal resolver request for {{ $query.QueryName }}")
 							}
 							{{ $s := index $.Services 0 }}
@@ -142,13 +142,13 @@ func Gql__type_{{ .TypeName }}() *graphql.Object {
 								return nil, errors.Wrap(err, "Failed to call RPC {{ $query.Method.Name }}")
 							}
 							{{- if $query.IsPluckResponse }}
-								{{- if $query.IsCamel }}
+								{{- if $query.UseJsonName }}
 								return runtime.MarshalResponse(resp.Get{{ $query.PluckResponseFieldName }}()), nil
 								{{- else }}
 								return resp.Get{{ $query.PluckResponseFieldName }}(), nil
 								{{- end }}
 							{{- else }}
-								{{- if $query.IsCamel }}
+								{{- if $query.UseJsonName }}
 								return runtime.MarshalResponse(resp), nil
 								{{- else }}
 								return resp, nil
@@ -278,7 +278,7 @@ func (x *graphql__resolver_{{ $service.Name }}) GetQueries(conn *grpc.ClientConn
 			},
 			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
 				var req {{ .InputType }}
-				if err := runtime.MarshalRequest(p.Args, &req, {{ if .IsCamel }}true{{ else }}false{{ end }}); err != nil {
+				if err := runtime.MarshalRequest(p.Args, &req); err != nil {
 					return nil, errors.Wrap(err, "Failed to marshal request for {{ .QueryName }}")
 				}
 				client := New{{ .Method.Service.Name }}Client(conn)
@@ -287,13 +287,13 @@ func (x *graphql__resolver_{{ $service.Name }}) GetQueries(conn *grpc.ClientConn
 					return nil, errors.Wrap(err, "Failed to call RPC {{ .Method.Name }}")
 				}
 				{{- if .IsPluckResponse }}
-					{{- if .IsCamel }}
+					{{- if .UseJsonName }}
 					return runtime.MarshalResponse(resp.Get{{ .PluckResponseFieldName }}()), nil
 					{{- else }}
 					return resp.Get{{ .PluckResponseFieldName }}(), nil
 					{{- end }}
 				{{- else }}
-					{{- if .IsCamel }}
+					{{- if .UseJsonName }}
 					return runtime.MarshalResponse(resp), nil
 					{{- else }}
 					return resp, nil
@@ -337,9 +337,9 @@ func (x *graphql__resolver_{{ $service.Name }}) GetMutations(conn *grpc.ClientCo
 			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
 				var req {{ .InputType }}
 				{{- if .InputName }}
-				if err := runtime.MarshalRequest(p.Args["{{ .InputName }}"], &req, {{ if .IsCamel }}true{{ else }}false{{ end }}); err != nil {
+				if err := runtime.MarshalRequest(p.Args["{{ .InputName }}"], &req); err != nil {
 				{{- else }}
-				if err := runtime.MarshalRequest(p.Args, &req, {{ if .IsCamel }}true{{ else }}false{{ end }}); err != nil {
+				if err := runtime.MarshalRequest(p.Args, &req); err != nil {
 				{{- end }}
 					return nil, errors.Wrap(err, "Failed to marshal request for {{ .MutationName }}")
 				}
@@ -349,13 +349,13 @@ func (x *graphql__resolver_{{ $service.Name }}) GetMutations(conn *grpc.ClientCo
 					return nil, errors.Wrap(err, "Failed to call RPC {{ .Method.Name }}")
 				}
 				{{- if .IsPluckResponse }}
-					{{- if .IsCamel }}
+					{{- if .UseJsonName }}
 					return runtime.MarshalResponse(resp.Get{{ .PluckResponseFieldName }}()), nil
 					{{- else }}
 					return resp.Get{{ .PluckResponseFieldName }}(), nil
 					{{- end }}
 				{{- else }}
-					{{- if .IsCamel }}
+					{{- if .UseJsonName }}
 					return runtime.MarshalResponse(resp), nil
 					{{- else }}
 					return resp, nil

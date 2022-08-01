@@ -10,8 +10,8 @@ message Character {
   int64 id = 1;
   string name = 2;
   repeated Character friends = 3;
-  repeated Episode appears_in = 4;
-  string home_planet = 5;
+  repeated Episode appears_in = 4 [json_name = "appearances"];
+  string home_planet = 5 [json_name = "home"];
   string primary_function = 6;
   Type type = 7;
 }
@@ -35,12 +35,12 @@ message GetHeroRequest {
 
 message GetHumanRequest {
   // id of the human
-  int64 id = 1 [(graphql.field) = {required: true}];
+  int64 id = 1 [json_name = "humanID", (graphql.field) = {required: true}];
 }
 
 message GetDroidRequest {
   // id of the droid
-  int64 id = 1 [(graphql.field) = {required: true}];
+  int64 id = 1 [json_name = "droidID", (graphql.field) = {required: true}];
 }
 
 message ListEmptyRequest {

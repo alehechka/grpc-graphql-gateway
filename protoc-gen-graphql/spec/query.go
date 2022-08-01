@@ -17,15 +17,15 @@ type Query struct {
 	Input  *Message
 	Output *Message
 
-	isCamel bool
+	useJsonName bool
 }
 
-func NewQuery(m *Method, input, output *Message, isCamel bool) *Query {
+func NewQuery(m *Method, input, output *Message, useJsonName bool) *Query {
 	return &Query{
-		Method:  m,
-		Input:   input,
-		Output:  output,
-		isCamel: isCamel,
+		Method:      m,
+		Input:       input,
+		Output:      output,
+		useJsonName: useJsonName,
 	}
 }
 
@@ -33,8 +33,8 @@ func (q *Query) IsResolver() bool {
 	return q.Schema.GetType() == graphql.GraphqlType_RESOLVER
 }
 
-func (q *Query) IsCamel() bool {
-	return q.isCamel
+func (q *Query) UseJsonName() bool {
+	return q.useJsonName
 }
 
 func (q *Query) QueryName() string {

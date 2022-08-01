@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+option go_package = "./;tests";
+
+message A {
+  string string_value = 1;
+  int64 int_value = 2;
+  repeated string string_slice = 3;
+  B nested_struct = 4;
+  repeated C struct_slice = 5;
+}
+
+message B {
+    string string_value = 1 [json_name = "valueString"];
+    int64 int_value = 2 [json_name = "valueInt"];
+    repeated string string_slice = 3 [json_name = "sliceString"];
+}
+
+message C {
+    string string_value = 1;
+    int64 int_value = 2;  
+}

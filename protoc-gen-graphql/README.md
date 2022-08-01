@@ -22,7 +22,7 @@ This plugin accepts some compile arguments:
 
 - `--graphql_out=verbose`: verbose debug output
 - `--graphql_out=exclude=[regex]`: exclude generation package with regexp
-- `--graphql_out=field_camel`: all graphql field name transform to lower-camel-case
+- `--graphql_out=field_json_name`: all graphql fields will use the protobuf supplied `json_name`
 
 All arguments can be provide by splitting comma.
 

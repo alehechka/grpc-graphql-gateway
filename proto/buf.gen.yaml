@@ -4,7 +4,8 @@ managed:
   go_package_prefix:
     default: github.com/alehechka/grpc-graphql-gateway/proto/gen/go
 plugins:
-  - remote: buf.build/protocolbuffers/plugins/go:v1.28.0-1
+  # - remote: buf.build/protocolbuffers/plugins/go:v1.28.0-1
+  - name: go
     out: gen/go
     opt:
       - paths=source_relative

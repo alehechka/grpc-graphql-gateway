@@ -1,29 +1,11 @@
-package runtime
+package tests
 
 import (
 	"testing"
 
+	"github.com/alehechka/grpc-graphql-gateway/runtime"
 	"github.com/stretchr/testify/assert"
 )
-
-type A struct {
-	StringValue  string   `json:"string_value"`
-	IntValue     int64    `json:"int_value"`
-	StringSlice  []string `json:"string_slice"`
-	NestedStruct B        `json:"nested_struct"`
-	StructSlice  []C      `json:"struct_slice"`
-}
-
-type B struct {
-	StringValue string   `json:"string_value"`
-	IntValue    int64    `json:"int_value"`
-	StringSlice []string `json:"string_slice"`
-}
-
-type C struct {
-	StringValue string `json:"string_value"`
-	IntValue    int64  `json:"int_value"`
-}
 
 func assertStruct(t *testing.T, s *A) {
 	assert.NotNil(t, s)
@@ -70,10 +52,10 @@ func TestMarshalRequest(t *testing.T) {
 			},
 		},
 	}
-	var v *A
-	err := MarshalRequest(data, &v, false)
+	var v A
+	err := runtime.MarshalRequest(data, &v)
 	assert.NoError(t, err)
-	assertStruct(t, v)
+	assertStruct(t, &v)
 }
 
 func TestMarshalRequestWithCamelCaseInput(t *testing.T) {
@@ -82,9 +64,9 @@ func TestMarshalRequestWithCamelCaseInput(t *testing.T) {
 		"intValue":    1,
 		"stringSlice": []string{"A", "B", "C"},
 		"nestedStruct": map[string]interface{}{
-			"stringValue": "string",
-			"intValue":    1,
-			"stringSlice": []string{"A", "B", "C"},
+			"valueString": "string",
+			"valueInt":    1,
+			"sliceString": []string{"A", "B", "C"},
 		},
 		"structSlice": []C{
 			{
@@ -97,8 +79,8 @@ func TestMarshalRequestWithCamelCaseInput(t *testing.T) {
 			},
 		},
 	}
-	var v *A
-	err := MarshalRequest(data, &v, true)
+	var v A
+	err := runtime.MarshalRequest(data, &v)
 	assert.NoError(t, err)
-	assertStruct(t, v)
+	assertStruct(t, &v)
 }

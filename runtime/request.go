@@ -1,13 +1,14 @@
 package runtime
 
 import (
-	"errors"
-
+	"bytes"
 	"encoding/json"
+	"errors"
 	"io/ioutil"
 	"net/http"
 
-	"github.com/iancoleman/strcase"
+	"github.com/golang/protobuf/jsonpb"
+	"google.golang.org/protobuf/runtime/protoiface"
 )
 
 type GraphqlRequest struct {
@@ -44,45 +45,12 @@ func parseRequest(r *http.Request) (*GraphqlRequest, error) {
 }
 
 // MarshalRequest marshals graphql request arguments to gRPC request message
-func MarshalRequest(args, v interface{}, isCamel bool) error {
-	if args == nil {
-		return errors.New("Resolved params should be non-nil")
-	}
-	m, ok := args.(map[string]interface{}) // graphql.ResolveParams or nested object
-	if !ok {
-		return errors.New("Failed to type conversion of map[string]interface{}")
-	}
-	if isCamel {
-		m = toLowerCaseKeys(m)
-	}
-	buf, err := json.Marshal(m)
-	if err != nil {
+func MarshalRequest(args map[string]interface{}, message protoiface.MessageV1) error {
+	buf := new(bytes.Buffer)
+
+	if err := json.NewEncoder(buf).Encode(args); err != nil {
 		return err
 	}
-	return json.Unmarshal(buf, &v)
-}
 
-// Convert to lower case keyname string
-func toLowerCaseKeys(args map[string]interface{}) map[string]interface{} {
-	lc := make(map[string]interface{})
-	for k, v := range args {
-		lc[strcase.ToSnake(k)] = marshal(v)
-	}
-	return lc
-}
-
-// marshals interface recursively
-func marshal(v interface{}) interface{} {
-	switch t := v.(type) {
-	case map[string]interface{}:
-		return toLowerCaseKeys(t)
-	case []interface{}:
-		ret := make([]interface{}, len(t))
-		for i, si := range t {
-			ret[i] = marshal(si)
-		}
-		return ret
-	default:
-		return t
-	}
+	return jsonpb.Unmarshal(buf, message)
 }

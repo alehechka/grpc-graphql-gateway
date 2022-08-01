@@ -161,8 +161,10 @@ enum GraphqlType {
 message GraphqlField {
   // If true, this field is required.
   bool required = 1;
-  // Use as other field name (not recommend)
-  string name = 2;
+  // DEPRECATED
+  // Use default `json_name` to supply custom name for graphql fields
+  // Must be generated with `field_json`.
+  string name = 2 [deprecated = true];
   // Define default value on input.
   string default = 3;
   // Omit this field from graphql definition

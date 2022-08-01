@@ -1,11 +1,30 @@
 package runtime
 
 import (
+	"bytes"
+	"encoding/json"
+	"fmt"
 	"reflect"
 	"strings"
 
-	"github.com/iancoleman/strcase"
+	"github.com/gogo/protobuf/jsonpb"
+	"google.golang.org/protobuf/runtime/protoiface"
 )
+
+func MarshalProtoResponse(message protoiface.MessageV1) (interface{}, error) {
+	marshaler := jsonpb.Marshaler{EnumsAsInts: true}
+
+	buf := new(bytes.Buffer)
+	if err := marshaler.Marshal(buf, message); err != nil {
+		return nil, err
+	}
+
+	var data interface{}
+	err := json.NewDecoder(buf).Decode(&data)
+
+	fmt.Printf("%#v", data)
+	return data, err
+}
 
 func derefValue(v reflect.Value) reflect.Value {
 	for v.Kind() == reflect.Ptr {
@@ -59,14 +78,11 @@ func marshalStruct(v reflect.Value) map[string]interface{} {
 	t := v.Type()
 
 	for i := 0; i < t.NumField(); i++ {
-		// If "json" tag is not set in struct field, it's not related to response field
-		// So we can skip marshaling
-		tag := t.Field(i).Tag.Get("json")
-		if tag == "" {
+		name := getTagName(t.Field(i).Tag)
+		if len(name) == 0 {
 			continue
 		}
 
-		name := strcase.ToLowerCamel(strings.TrimSuffix(tag, ",omitempty"))
 		vv := derefValue(v.Field(i))
 
 		switch vv.Kind() {
@@ -81,6 +97,24 @@ func marshalStruct(v reflect.Value) map[string]interface{} {
 		}
 	}
 	return ret
+}
+
+func getTagName(tag reflect.StructTag) (name string) {
+
+	protoTag := tag.Get("protobuf")
+	options := strings.Split(protoTag, ",")
+
+	for _, option := range options {
+		if strings.HasPrefix(option, "name") {
+			name = option[5:]
+		}
+		if strings.HasPrefix(option, "json") {
+			name = option[5:]
+			break
+		}
+	}
+
+	return
 }
 
 type mapValue struct {
