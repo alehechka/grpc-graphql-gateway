@@ -1,7 +1,6 @@
 package runtime
 
 import (
-	"fmt"
 	"reflect"
 	"strings"
 
@@ -136,7 +135,6 @@ func marshalMap(v reflect.Value) []mapValue {
 func primitive(v reflect.Value) interface{} {
 	// Guard by cheking IsValid due to prevent panic in runtime
 	if !v.IsValid() {
-		fmt.Println("not valid: ")
 		return nil
 	}
 
@@ -162,7 +160,6 @@ func primitive(v reflect.Value) interface{} {
 	case reflect.Float64:
 		return float64(v.Float())
 	default:
-		fmt.Println("default:", v.Type().Kind())
 		return nil
 	}
 }
