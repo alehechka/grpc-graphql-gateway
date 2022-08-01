@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## UNRELEASED
+
+- Resolve camelCase enum values ([#13](https://github.com/alehechka/grpc-graphql-gateway/pull/13))
+
 ## [v0.2.4](https://github.com/alehechka/grpc-graphql-gateway/releases/tag/v0.2.4)
 
 - Add compiler and plugin version info to header comment ([#12](https://github.com/alehechka/grpc-graphql-gateway/pull/12))
