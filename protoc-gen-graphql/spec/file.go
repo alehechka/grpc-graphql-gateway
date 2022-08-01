@@ -20,21 +20,21 @@ type File struct {
 	services []*Service
 	enums    []*Enum
 
-	useJsonName bool
+	useProtoName bool
 
 	compilerVersion *plugin.Version
 	pluginVersion   string
 }
 
 type FileConfig struct {
-	UseJsonName     bool
+	UseProtoName    bool
 	CompilerVersion *plugin.Version
 	PluginVersion   string
 }
 
-func (c *FileConfig) GetUseJsonName() bool {
+func (c *FileConfig) GetUseProtoName() bool {
 	if c != nil {
-		return c.UseJsonName
+		return c.UseProtoName
 	}
 	return false
 }
@@ -64,10 +64,10 @@ func NewFile(
 		descriptor:      d,
 		comments:        makeComments(d),
 
-		services:    make([]*Service, 0),
-		messages:    make([]*Message, 0),
-		enums:       make([]*Enum, 0),
-		useJsonName: config.GetUseJsonName(),
+		services:     make([]*Service, 0),
+		messages:     make([]*Message, 0),
+		enums:        make([]*Enum, 0),
+		useProtoName: config.GetUseProtoName(),
 	}
 	for i, s := range d.GetService() {
 		f.services = append(f.services, NewService(s, f, 6, i))
@@ -76,7 +76,7 @@ func NewFile(
 		f.messages = append(f.messages, f.messagesRecursive(m, []string{}, 4, i)...)
 	}
 	for i, e := range d.GetEnumType() {
-		f.enums = append(f.enums, NewEnum(e, f, []string{}, f.useJsonName, 5, i))
+		f.enums = append(f.enums, NewEnum(e, f, []string{}, f.useProtoName, 5, i))
 	}
 	return f
 }
@@ -94,7 +94,7 @@ func (f *File) Enums() []*Enum {
 }
 
 func (f *File) messagesRecursive(d *descriptor.DescriptorProto, prefix []string, paths ...int) []*Message {
-	m := NewMessage(d, f, prefix, f.useJsonName, paths...)
+	m := NewMessage(d, f, prefix, f.useProtoName, paths...)
 
 	// If message is map_entry, assign all fields as "required"
 	if opt := d.GetOptions(); opt != nil && opt.GetMapEntry() {
@@ -108,7 +108,7 @@ func (f *File) messagesRecursive(d *descriptor.DescriptorProto, prefix []string,
 	for i, e := range d.GetEnumType() {
 		p := make([]int, len(paths))
 		copy(p, paths)
-		f.enums = append(f.enums, NewEnum(e, f, prefix, f.useJsonName, append(p, 5, i)...))
+		f.enums = append(f.enums, NewEnum(e, f, prefix, f.useProtoName, append(p, 5, i)...))
 	}
 
 	for i, m := range d.GetNestedType() {

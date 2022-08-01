@@ -19,14 +19,14 @@ type Field struct {
 
 	DependType    interface{}
 	IsCyclic      bool
-	useJSONName   bool
+	useProtoName  bool
 	forceRequired bool
 }
 
 func NewField(
 	d *descriptor.FieldDescriptorProto,
 	f *File,
-	useJSONName bool,
+	useProtoName bool,
 	paths ...int,
 ) *Field {
 
@@ -40,11 +40,11 @@ func NewField(
 	}
 
 	return &Field{
-		descriptor:  d,
-		Option:      o,
-		File:        f,
-		paths:       paths,
-		useJSONName: useJSONName,
+		descriptor:   d,
+		Option:       o,
+		File:         f,
+		paths:        paths,
+		useProtoName: useProtoName,
 	}
 }
 
@@ -64,10 +64,10 @@ func (f *Field) setRequiredField() {
 }
 
 func (f *Field) FieldName() string {
-	if f.useJSONName {
-		return *f.descriptor.JsonName
+	if f.useProtoName {
+		return f.Name()
 	}
-	return f.Name()
+	return *f.descriptor.JsonName
 }
 
 func (f *Field) Type() descriptor.FieldDescriptorProto_Type {

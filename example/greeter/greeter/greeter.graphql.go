@@ -203,7 +203,7 @@ func (x *graphql__resolver_Greeter) GetQueries(conn *grpc.ClientConn) graphql.Fi
 				if err != nil {
 					return nil, errors.Wrap(err, "Failed to call RPC SayHello")
 				}
-				return resp, nil
+				return runtime.MarshalResponse(resp), nil
 			},
 		},
 		"goodbye": &graphql.Field{
@@ -225,7 +225,7 @@ func (x *graphql__resolver_Greeter) GetQueries(conn *grpc.ClientConn) graphql.Fi
 				if err != nil {
 					return nil, errors.Wrap(err, "Failed to call RPC SayGoodbye")
 				}
-				return resp, nil
+				return runtime.MarshalResponse(resp), nil
 			},
 		},
 	}

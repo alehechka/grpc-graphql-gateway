@@ -1,30 +1,9 @@
 package runtime
 
 import (
-	"bytes"
-	"encoding/json"
-	"fmt"
 	"reflect"
 	"strings"
-
-	"github.com/gogo/protobuf/jsonpb"
-	"google.golang.org/protobuf/runtime/protoiface"
 )
-
-func MarshalProtoResponse(message protoiface.MessageV1) (interface{}, error) {
-	marshaler := jsonpb.Marshaler{EnumsAsInts: true}
-
-	buf := new(bytes.Buffer)
-	if err := marshaler.Marshal(buf, message); err != nil {
-		return nil, err
-	}
-
-	var data interface{}
-	err := json.NewDecoder(buf).Decode(&data)
-
-	fmt.Printf("%#v", data)
-	return data, err
-}
 
 func derefValue(v reflect.Value) reflect.Value {
 	for v.Kind() == reflect.Ptr {

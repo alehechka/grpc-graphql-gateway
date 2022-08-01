@@ -18,6 +18,7 @@
 main
 
 dist/
+temp/
 
 example/**/google
 example/**/graphql

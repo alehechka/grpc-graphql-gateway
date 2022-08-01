@@ -22,7 +22,7 @@ func NewEnum(
 	d *descriptor.EnumDescriptorProto,
 	f *File,
 	prefix []string,
-	useJSONName bool,
+	useProtoName bool,
 	paths ...int,
 ) *Enum {
 
@@ -38,7 +38,7 @@ func NewEnum(
 	for i, v := range d.GetValue() {
 		ps := make([]int, len(paths))
 		copy(ps, paths)
-		e.values = append(e.values, NewEnumValue(v, f, useJSONName, append(ps, 2, i)...))
+		e.values = append(e.values, NewEnumValue(v, f, useProtoName, append(ps, 2, i)...))
 	}
 	return e
 }

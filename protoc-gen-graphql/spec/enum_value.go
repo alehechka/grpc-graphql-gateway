@@ -9,22 +9,22 @@ type EnumValue struct {
 	descriptor *descriptor.EnumValueDescriptorProto
 	*File
 
-	paths       []int
-	useJsonName bool
+	paths        []int
+	useProtoName bool
 }
 
 func NewEnumValue(
 	d *descriptor.EnumValueDescriptorProto,
 	f *File,
-	useJsonName bool,
+	useProtoName bool,
 	paths ...int,
 ) *EnumValue {
 
 	return &EnumValue{
-		descriptor:  d,
-		File:        f,
-		useJsonName: useJsonName,
-		paths:       paths,
+		descriptor:   d,
+		File:         f,
+		useProtoName: useProtoName,
+		paths:        paths,
 	}
 }
 
@@ -40,9 +40,9 @@ func (e *EnumValue) Name() string {
 	return e.descriptor.GetName()
 }
 
-func (e *EnumValue) UseJsonName() bool {
+func (e *EnumValue) UseProtoName() bool {
 	if e != nil {
-		return e.useJsonName
+		return e.useProtoName
 	}
 	return false
 }

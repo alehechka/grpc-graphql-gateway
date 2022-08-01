@@ -15,20 +15,20 @@ type Mutation struct {
 	Input  *Message
 	Output *Message
 
-	useJsonName bool
+	useProtoName bool
 }
 
-func NewMutation(m *Method, input, output *Message, useJsonName bool) *Mutation {
+func NewMutation(m *Method, input, output *Message, useProtoName bool) *Mutation {
 	return &Mutation{
-		Method:      m,
-		Input:       input,
-		Output:      output,
-		useJsonName: useJsonName,
+		Method:       m,
+		Input:        input,
+		Output:       output,
+		useProtoName: useProtoName,
 	}
 }
 
-func (m *Mutation) UseJsonName() bool {
-	return m.useJsonName
+func (m *Mutation) UseProtoName() bool {
+	return m.useProtoName
 }
 
 func (m *Mutation) MutationName() string {

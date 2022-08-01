@@ -13,11 +13,11 @@ var acceptablePathsValues = map[string]struct{}{
 
 // Params spec have plugin parameters
 type Params struct {
-	QueryOut      string
-	Excludes      []*regexp.Regexp
-	Verbose       bool
-	FieldJsonName bool
-	Paths         string
+	QueryOut       string
+	Excludes       []*regexp.Regexp
+	Verbose        bool
+	FieldProtoName bool
+	Paths          string
 }
 
 func NewParams(p string) (*Params, error) {
@@ -47,8 +47,8 @@ func NewParams(p string) (*Params, error) {
 				return nil, errors.New("failed to compile regex for exclude argument " + kv[1])
 			}
 			params.Excludes = append(params.Excludes, regex)
-		case "field_json_name":
-			params.FieldJsonName = true
+		case "field_proto":
+			params.FieldProtoName = true
 		case "paths":
 			if len(kv) == 1 {
 				return nil, errors.New("argument " + kv[0] + " must have value")

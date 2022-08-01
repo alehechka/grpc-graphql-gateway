@@ -64,8 +64,8 @@ func main() {
 		return
 	}
 
-	if args.FieldJsonName {
-		log.Println("[INFO] field_json option is provided. All type fields will use the `json_name` tag.")
+	if args.FieldProtoName {
+		log.Println("[INFO] field_proto option is provided. All type fields will use the `protobuf` name tag.")
 	}
 
 	// We're dealing with each descriptors to out wrapper struct
@@ -73,7 +73,7 @@ func main() {
 	var files []*spec.File
 	for _, f := range req.GetProtoFile() {
 		files = append(files, spec.NewFile(f, &spec.FileConfig{
-			UseJsonName:     args.FieldJsonName,
+			UseProtoName:    args.FieldProtoName,
 			CompilerVersion: req.GetCompilerVersion(),
 			PluginVersion:   version,
 		}))

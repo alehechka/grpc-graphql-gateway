@@ -50,7 +50,7 @@ func Gql__enum_{{ .Name }}() *graphql.Enum {
 					{{- if .Comment }}
 					Description: ` + "`" + `{{ .Comment }}` + "`" + `,
 					{{- end }}
-					Value: {{ if .UseJsonName }}int32{{ else }}{{ $enum.Name }}{{ end }}({{ .Number }}),
+					Value: {{ if .UseProtoName }}{{ $enum.Name }}{{ else }}int32{{ end }}({{ .Number }}),
 				},
 {{- end }}
 			},
@@ -142,16 +142,16 @@ func Gql__type_{{ .TypeName }}() *graphql.Object {
 								return nil, errors.Wrap(err, "Failed to call RPC {{ $query.Method.Name }}")
 							}
 							{{- if $query.IsPluckResponse }}
-								{{- if $query.UseJsonName }}
-								return runtime.MarshalResponse(resp.Get{{ $query.PluckResponseFieldName }}()), nil
-								{{- else }}
+								{{- if $query.UseProtoName }}
 								return resp.Get{{ $query.PluckResponseFieldName }}(), nil
+								{{- else }}
+								return runtime.MarshalResponse(resp.Get{{ $query.PluckResponseFieldName }}()), nil
 								{{- end }}
 							{{- else }}
-								{{- if $query.UseJsonName }}
-								return runtime.MarshalResponse(resp), nil
-								{{- else }}
+								{{- if $query.UseProtoName }}
 								return resp, nil
+								{{- else }}
+								return runtime.MarshalResponse(resp), nil
 								{{- end }}
 							{{- end }}
 						},
@@ -287,16 +287,16 @@ func (x *graphql__resolver_{{ $service.Name }}) GetQueries(conn *grpc.ClientConn
 					return nil, errors.Wrap(err, "Failed to call RPC {{ .Method.Name }}")
 				}
 				{{- if .IsPluckResponse }}
-					{{- if .UseJsonName }}
-					return runtime.MarshalResponse(resp.Get{{ .PluckResponseFieldName }}()), nil
-					{{- else }}
+					{{- if .UseProtoName }}
 					return resp.Get{{ .PluckResponseFieldName }}(), nil
+					{{- else }}
+					return runtime.MarshalResponse(resp.Get{{ .PluckResponseFieldName }}()), nil
 					{{- end }}
 				{{- else }}
-					{{- if .UseJsonName }}
-					return runtime.MarshalResponse(resp), nil
-					{{- else }}
+					{{- if .UseProtoName }}
 					return resp, nil
+					{{- else }}
+					return runtime.MarshalResponse(resp), nil
 					{{- end }}
 				{{- end }}
 			},
@@ -349,16 +349,16 @@ func (x *graphql__resolver_{{ $service.Name }}) GetMutations(conn *grpc.ClientCo
 					return nil, errors.Wrap(err, "Failed to call RPC {{ .Method.Name }}")
 				}
 				{{- if .IsPluckResponse }}
-					{{- if .UseJsonName }}
-					return runtime.MarshalResponse(resp.Get{{ .PluckResponseFieldName }}()), nil
-					{{- else }}
+					{{- if .UseProtoName }}
 					return resp.Get{{ .PluckResponseFieldName }}(), nil
+					{{- else }}
+					return runtime.MarshalResponse(resp.Get{{ .PluckResponseFieldName }}()), nil
 					{{- end }}
 				{{- else }}
-					{{- if .UseJsonName }}
-					return runtime.MarshalResponse(resp), nil
-					{{- else }}
+					{{- if .UseProtoName }}
 					return resp, nil
+					{{- else }}
+					return runtime.MarshalResponse(resp), nil
 					{{- end }}
 				{{- end }}
 			},
