@@ -14,6 +14,7 @@ build: init
 			--plugin=../../dist/protoc-gen-graphql \
 			--graphql_out=${SPECDIR} \
 			--graphql_opt=paths=source_relative \
+			--graphql_opt=field_camel \
 			--go_out=:${SPECDIR} \
 			--go_opt=paths=source_relative \
 			--go-grpc_out=:${SPECDIR}  \
