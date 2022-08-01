@@ -64,8 +64,8 @@ func main() {
 		return
 	}
 
-	if args.FieldCamelCase {
-		log.Println("[INFO] field_camel option is provided. All type fields are transform to camelcase.")
+	if args.FieldProtoName {
+		log.Println("[INFO] field_proto option is provided. All type fields will use the `protobuf` name tag.")
 	}
 
 	// We're dealing with each descriptors to out wrapper struct
@@ -73,7 +73,7 @@ func main() {
 	var files []*spec.File
 	for _, f := range req.GetProtoFile() {
 		files = append(files, spec.NewFile(f, &spec.FileConfig{
-			IsCamel:         args.FieldCamelCase,
+			UseProtoName:    args.FieldProtoName,
 			CompilerVersion: req.GetCompilerVersion(),
 			PluginVersion:   version,
 		}))

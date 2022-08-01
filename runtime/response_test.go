@@ -7,29 +7,29 @@ import (
 )
 
 type exampleStruct struct {
-	UserId int64  `json:"user_id,omitempty"`
-	Name   string `json:"name,omitempty"`
+	UserId int64  `protobuf:"name=user_id,json=userId" json:"user_id,omitempty"`
+	Name   string `protobuf:"name=name" json:"name,omitempty"`
 
-	TestInt   int   `json:"test_int,omitempty"`
-	TestInt32 int32 `json:"test_int32,omitempty"`
-	TestInt64 int64 `json:"test_int64,omitempty"`
+	TestInt   int   `protobuf:"name=test_int,json=testInt" json:"test_int,omitempty"`
+	TestInt32 int32 `protobuf:"name=test_int32,json=testInt32" json:"test_int32,omitempty"`
+	TestInt64 int64 `protobuf:"name=test_int64,json=testInt64" json:"test_int64,omitempty"`
 
-	TestUint   uint   `json:"test_uint,omitempty"`
-	TestUint32 uint32 `json:"test_uint32,omitempty"`
-	TestUint64 uint64 `json:"test_uint64,omitempty"`
+	TestUint   uint   `protobuf:"name=test_uint,json=testUint" json:"test_uint,omitempty"`
+	TestUint32 uint32 `protobuf:"name=test_uint32,json=testUint32" json:"test_uint32,omitempty"`
+	TestUint64 uint64 `protobuf:"name=test_uint64,json=testUint64" json:"test_uint64,omitempty"`
 
-	TestFloat32 float32 `json:"test_float32,omitempty"`
-	TestFloat64 float64 `json:"test_float64,omitempty"`
+	TestFloat32 float32 `protobuf:"name=test_float32,json=testFloat32" json:"test_float32,omitempty"`
+	TestFloat64 float64 `protobuf:"name=test_float64,json=testFloat64" json:"test_float64,omitempty"`
 
-	TestBool bool `json:"test_bool,omitempty"`
+	TestBool bool `protobuf:"name=test_bool,json=testBool" json:"test_bool,omitempty"`
 
-	SubStruct *exampleSubStruct   `json:"sub_struct,omitempty"`
-	SubSlice  []*exampleSubStruct `json:"sub_slice,omitempty"`
-	SubMap    map[string]int64    `json:"sub_map,omitempty"`
+	SubStruct *exampleSubStruct   `protobuf:"name=sub_struct,json=subStruct" json:"sub_struct,omitempty"`
+	SubSlice  []*exampleSubStruct `protobuf:"name=sub_slice,json=subSlice" json:"sub_slice,omitempty"`
+	SubMap    map[string]int64    `protobuf:"name=sub_map,json=subMap" json:"sub_map,omitempty"`
 }
 
 type exampleSubStruct struct {
-	SomeData string `json:"some_data,omitempty"`
+	SomeData string `protobuf:"name=some_data,json=someData" json:"some_data,omitempty"`
 }
 
 func assertMap(t *testing.T, actual map[string]interface{}, expects map[string]interface{}) {

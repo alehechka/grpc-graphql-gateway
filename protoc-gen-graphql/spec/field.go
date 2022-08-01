@@ -7,7 +7,6 @@ import (
 	graphql "github.com/alehechka/grpc-graphql-gateway/proto/gen/go/graphql"
 	"github.com/golang/protobuf/proto"
 	descriptor "github.com/golang/protobuf/protoc-gen-go/descriptor"
-	"github.com/iancoleman/strcase"
 )
 
 // Field spec wraps FieldDescriptorProto with keeping file info
@@ -20,14 +19,14 @@ type Field struct {
 
 	DependType    interface{}
 	IsCyclic      bool
-	isCamel       bool
+	useProtoName  bool
 	forceRequired bool
 }
 
 func NewField(
 	d *descriptor.FieldDescriptorProto,
 	f *File,
-	isCamel bool,
+	useProtoName bool,
 	paths ...int,
 ) *Field {
 
@@ -41,11 +40,11 @@ func NewField(
 	}
 
 	return &Field{
-		descriptor: d,
-		Option:     o,
-		File:       f,
-		paths:      paths,
-		isCamel:    isCamel,
+		descriptor:   d,
+		Option:       o,
+		File:         f,
+		paths:        paths,
+		useProtoName: useProtoName,
 	}
 }
 
@@ -65,10 +64,10 @@ func (f *Field) setRequiredField() {
 }
 
 func (f *Field) FieldName() string {
-	if f.isCamel {
-		return strcase.ToLowerCamel(f.Name())
+	if f.useProtoName {
+		return f.Name()
 	}
-	return f.Name()
+	return *f.descriptor.JsonName
 }
 
 func (f *Field) Type() descriptor.FieldDescriptorProto_Type {

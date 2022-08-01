@@ -15,20 +15,20 @@ type Mutation struct {
 	Input  *Message
 	Output *Message
 
-	isCamel bool
+	useProtoName bool
 }
 
-func NewMutation(m *Method, input, output *Message, isCamel bool) *Mutation {
+func NewMutation(m *Method, input, output *Message, useProtoName bool) *Mutation {
 	return &Mutation{
-		Method:  m,
-		Input:   input,
-		Output:  output,
-		isCamel: isCamel,
+		Method:       m,
+		Input:        input,
+		Output:       output,
+		useProtoName: useProtoName,
 	}
 }
 
-func (m *Mutation) IsCamel() bool {
-	return m.isCamel
+func (m *Mutation) UseProtoName() bool {
+	return m.useProtoName
 }
 
 func (m *Mutation) MutationName() string {

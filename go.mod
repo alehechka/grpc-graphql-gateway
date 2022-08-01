@@ -4,6 +4,7 @@ go 1.18
 
 require (
 	github.com/friendsofgo/graphiql v0.2.2
+	github.com/gogo/protobuf v1.3.2
 	github.com/golang/protobuf v1.5.2
 	github.com/graphql-go/graphql v0.8.0
 	github.com/iancoleman/strcase v0.2.0

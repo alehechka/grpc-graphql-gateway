@@ -262,7 +262,6 @@ func (s *Server) ListHumans(
 		}
 		cs = append(cs, c)
 	}
-	log.Println(cs)
 	return &starwars.ListHumansResponse{
 		Humans: cs,
 	}, nil

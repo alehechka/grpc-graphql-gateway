@@ -195,7 +195,7 @@ func (x *graphql__resolver_Greeter) GetQueries(conn *grpc.ClientConn) graphql.Fi
 			},
 			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
 				var req HelloRequest
-				if err := runtime.MarshalRequest(p.Args, &req, false); err != nil {
+				if err := runtime.MarshalRequest(p.Args, &req); err != nil {
 					return nil, errors.Wrap(err, "Failed to marshal request for hello")
 				}
 				client := NewGreeterClient(conn)
@@ -203,7 +203,7 @@ func (x *graphql__resolver_Greeter) GetQueries(conn *grpc.ClientConn) graphql.Fi
 				if err != nil {
 					return nil, errors.Wrap(err, "Failed to call RPC SayHello")
 				}
-				return resp, nil
+				return runtime.MarshalResponse(resp), nil
 			},
 		},
 		"goodbye": &graphql.Field{
@@ -217,7 +217,7 @@ func (x *graphql__resolver_Greeter) GetQueries(conn *grpc.ClientConn) graphql.Fi
 			},
 			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
 				var req GoodbyeRequest
-				if err := runtime.MarshalRequest(p.Args, &req, false); err != nil {
+				if err := runtime.MarshalRequest(p.Args, &req); err != nil {
 					return nil, errors.Wrap(err, "Failed to marshal request for goodbye")
 				}
 				client := NewGreeterClient(conn)
@@ -225,7 +225,7 @@ func (x *graphql__resolver_Greeter) GetQueries(conn *grpc.ClientConn) graphql.Fi
 				if err != nil {
 					return nil, errors.Wrap(err, "Failed to call RPC SayGoodbye")
 				}
-				return resp, nil
+				return runtime.MarshalResponse(resp), nil
 			},
 		},
 	}

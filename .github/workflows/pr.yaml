@@ -68,6 +68,9 @@ jobs:
           go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.28 
           go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.2
 
+      - name: Tests
+        run: make test
+
       - name: Build example/starwars
         run: make build_all
         working-directory: example/starwars

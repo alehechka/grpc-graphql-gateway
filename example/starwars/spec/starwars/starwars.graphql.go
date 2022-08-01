@@ -86,10 +86,10 @@ func Gql__interface_Character() *graphql.Interface {
 				"name": &graphql.Field{
 					Type: graphql.String,
 				},
-				"appearsIn": &graphql.Field{
+				"appearances": &graphql.Field{
 					Type: graphql.NewList(Gql__enum_Episode()),
 				},
-				"homePlanet": &graphql.Field{
+				"home": &graphql.Field{
 					Type: graphql.String,
 				},
 				"primaryFunction": &graphql.Field{
@@ -154,7 +154,7 @@ func Gql__type_GetHumanRequest() *graphql.Object {
 		gql__type_GetHumanRequest = graphql.NewObject(graphql.ObjectConfig{
 			Name: "Starwars_Type_GetHumanRequest",
 			Fields: graphql.Fields{
-				"id": &graphql.Field{
+				"humanID": &graphql.Field{
 					Type:        graphql.NewNonNull(graphql.Int),
 					Description: `id of the human`,
 				},
@@ -184,7 +184,7 @@ func Gql__type_GetDroidRequest() *graphql.Object {
 		gql__type_GetDroidRequest = graphql.NewObject(graphql.ObjectConfig{
 			Name: "Starwars_Type_GetDroidRequest",
 			Fields: graphql.Fields{
-				"id": &graphql.Field{
+				"droidID": &graphql.Field{
 					Type:        graphql.NewNonNull(graphql.Int),
 					Description: `id of the droid`,
 				},
@@ -208,10 +208,10 @@ func Gql__type_Character() *graphql.Object {
 				"friends": &graphql.Field{
 					Type: graphql.NewList(Gql__interface_Character()),
 				},
-				"appearsIn": &graphql.Field{
+				"appearances": &graphql.Field{
 					Type: graphql.NewList(Gql__enum_Episode()),
 				},
-				"homePlanet": &graphql.Field{
+				"home": &graphql.Field{
 					Type: graphql.String,
 				},
 				"primaryFunction": &graphql.Field{
@@ -276,7 +276,7 @@ func Gql__input_GetHumanRequest() *graphql.InputObject {
 		gql__input_GetHumanRequest = graphql.NewInputObject(graphql.InputObjectConfig{
 			Name: "Starwars_Input_GetHumanRequest",
 			Fields: graphql.InputObjectConfigFieldMap{
-				"id": &graphql.InputObjectFieldConfig{
+				"humanID": &graphql.InputObjectFieldConfig{
 					Description: `id of the human`,
 					Type:        graphql.NewNonNull(graphql.Int),
 				},
@@ -306,7 +306,7 @@ func Gql__input_GetDroidRequest() *graphql.InputObject {
 		gql__input_GetDroidRequest = graphql.NewInputObject(graphql.InputObjectConfig{
 			Name: "Starwars_Input_GetDroidRequest",
 			Fields: graphql.InputObjectConfigFieldMap{
-				"id": &graphql.InputObjectFieldConfig{
+				"droidID": &graphql.InputObjectFieldConfig{
 					Description: `id of the droid`,
 					Type:        graphql.NewNonNull(graphql.Int),
 				},
@@ -330,10 +330,10 @@ func Gql__input_Character() *graphql.InputObject {
 				"friends": &graphql.InputObjectFieldConfig{
 					Type: graphql.NewList(Gql__interface_Character()),
 				},
-				"appearsIn": &graphql.InputObjectFieldConfig{
+				"appearances": &graphql.InputObjectFieldConfig{
 					Type: graphql.NewList(Gql__enum_Episode()),
 				},
-				"homePlanet": &graphql.InputObjectFieldConfig{
+				"home": &graphql.InputObjectFieldConfig{
 					Type: graphql.String,
 				},
 				"primaryFunction": &graphql.InputObjectFieldConfig{
@@ -400,7 +400,7 @@ func (x *graphql__resolver_StartwarsService) GetQueries(conn *grpc.ClientConn) g
 			},
 			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
 				var req GetHeroRequest
-				if err := runtime.MarshalRequest(p.Args, &req, true); err != nil {
+				if err := runtime.MarshalRequest(p.Args, &req); err != nil {
 					return nil, errors.Wrap(err, "Failed to marshal request for hero")
 				}
 				client := NewStartwarsServiceClient(conn)
@@ -414,14 +414,14 @@ func (x *graphql__resolver_StartwarsService) GetQueries(conn *grpc.ClientConn) g
 		"human": &graphql.Field{
 			Type: Gql__type_Character(),
 			Args: graphql.FieldConfigArgument{
-				"id": &graphql.ArgumentConfig{
+				"humanID": &graphql.ArgumentConfig{
 					Type:        graphql.NewNonNull(graphql.Int),
 					Description: `id of the human`,
 				},
 			},
 			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
 				var req GetHumanRequest
-				if err := runtime.MarshalRequest(p.Args, &req, true); err != nil {
+				if err := runtime.MarshalRequest(p.Args, &req); err != nil {
 					return nil, errors.Wrap(err, "Failed to marshal request for human")
 				}
 				client := NewStartwarsServiceClient(conn)
@@ -435,14 +435,14 @@ func (x *graphql__resolver_StartwarsService) GetQueries(conn *grpc.ClientConn) g
 		"droid": &graphql.Field{
 			Type: Gql__type_Character(),
 			Args: graphql.FieldConfigArgument{
-				"id": &graphql.ArgumentConfig{
+				"droidID": &graphql.ArgumentConfig{
 					Type:        graphql.NewNonNull(graphql.Int),
 					Description: `id of the droid`,
 				},
 			},
 			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
 				var req GetDroidRequest
-				if err := runtime.MarshalRequest(p.Args, &req, true); err != nil {
+				if err := runtime.MarshalRequest(p.Args, &req); err != nil {
 					return nil, errors.Wrap(err, "Failed to marshal request for droid")
 				}
 				client := NewStartwarsServiceClient(conn)
@@ -458,7 +458,7 @@ func (x *graphql__resolver_StartwarsService) GetQueries(conn *grpc.ClientConn) g
 			Args: graphql.FieldConfigArgument{},
 			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
 				var req ListEmptyRequest
-				if err := runtime.MarshalRequest(p.Args, &req, true); err != nil {
+				if err := runtime.MarshalRequest(p.Args, &req); err != nil {
 					return nil, errors.Wrap(err, "Failed to marshal request for humans")
 				}
 				client := NewStartwarsServiceClient(conn)
@@ -474,7 +474,7 @@ func (x *graphql__resolver_StartwarsService) GetQueries(conn *grpc.ClientConn) g
 			Args: graphql.FieldConfigArgument{},
 			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
 				var req ListEmptyRequest
-				if err := runtime.MarshalRequest(p.Args, &req, true); err != nil {
+				if err := runtime.MarshalRequest(p.Args, &req); err != nil {
 					return nil, errors.Wrap(err, "Failed to marshal request for droids")
 				}
 				client := NewStartwarsServiceClient(conn)
