@@ -15,7 +15,7 @@ func getTagName(tag reflect.StructTag) (name string) {
 	return
 }
 
-func getProtoTagName(tag reflect.StructTag) (name string, exists bool) {
+func getProtoTagName(tag reflect.StructTag) (name string, ok bool) {
 	protoTag, protoOK := tag.Lookup("protobuf")
 	if !protoOK {
 		return
@@ -28,25 +28,25 @@ func getProtoTagName(tag reflect.StructTag) (name string, exists bool) {
 	for _, option := range options {
 		if strings.HasPrefix(option, jsonPrefix) {
 			name = option[len(jsonPrefix):]
-			exists = true
-			break // found `jsonPrefix` so we are able to break from the loop and return
-		} else if len(name) == 0 && strings.HasPrefix(option, namePrefix) {
+			if ok = len(name) > 0; ok {
+				return // found the first valid `jsonPrefix` so we are able to return
+			}
+		} else if !ok && strings.HasPrefix(option, namePrefix) {
 			name = option[len(namePrefix):]
-			exists = true
-			continue // found `namePrefix`, however `jsonPrefix` is the priority, so we must keep searching
+			ok = len(name) > 0
 		}
 	}
 
 	return
 }
 
-func getJsonTagName(tag reflect.StructTag) (name string, exists bool) {
+func getJsonTagName(tag reflect.StructTag) (name string, ok bool) {
 	jsonTag, jsonOK := tag.Lookup("json")
 	if !jsonOK {
 		return
 	}
 
 	name = strings.Split(jsonTag, ",")[0]
-	exists = len(name) > 0
+	ok = len(name) > 0
 	return
 }

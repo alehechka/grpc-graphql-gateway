@@ -183,6 +183,50 @@ func Test_getProtoTagName_FindsFirstJson(t *testing.T) {
 	assert.True(t, exists)
 }
 
+func Test_getProtoTagName_EmptyName(t *testing.T) {
+	data := struct {
+		item string `protobuf:"bytes,2,opt,name=,proto3"`
+	}{item: "hello"}
+
+	name, exists := getProtoTagName(reflect.ValueOf(data).Type().Field(0).Tag)
+
+	assert.Equal(t, "", name)
+	assert.False(t, exists)
+}
+
+func Test_getProtoTagName_EmptyJson(t *testing.T) {
+	data := struct {
+		item string `protobuf:"bytes,2,opt,json=,proto3"`
+	}{item: "hello"}
+
+	name, exists := getProtoTagName(reflect.ValueOf(data).Type().Field(0).Tag)
+
+	assert.Equal(t, "", name)
+	assert.False(t, exists)
+}
+
+func Test_getProtoTagName_SecondNameValid(t *testing.T) {
+	data := struct {
+		item string `protobuf:"bytes,2,opt,name=,name=item,proto3"`
+	}{item: "hello"}
+
+	name, exists := getProtoTagName(reflect.ValueOf(data).Type().Field(0).Tag)
+
+	assert.Equal(t, "item", name)
+	assert.True(t, exists)
+}
+
+func Test_getProtoTagName_SecondJsonValid(t *testing.T) {
+	data := struct {
+		item string `protobuf:"bytes,2,opt,json=,json=item,proto3"`
+	}{item: "hello"}
+
+	name, exists := getProtoTagName(reflect.ValueOf(data).Type().Field(0).Tag)
+
+	assert.Equal(t, "item", name)
+	assert.True(t, exists)
+}
+
 func Test_getTagName_ProtoName(t *testing.T) {
 	data := struct {
 		item string `protobuf:"bytes,2,opt,name=item,proto3"`
@@ -216,6 +260,26 @@ func Test_getTagName_NoProto_Json(t *testing.T) {
 func Test_getTagName_InvalidProto_Json(t *testing.T) {
 	data := struct {
 		item string `protobuf:"bytes,2,opt,proto3" json:"item"`
+	}{item: "hello"}
+
+	name := getTagName(reflect.ValueOf(data).Type().Field(0).Tag)
+
+	assert.Equal(t, "item", name)
+}
+
+func Test_getTagName_InvalidProtoEmptyName_Json(t *testing.T) {
+	data := struct {
+		item string `protobuf:"bytes,2,opt,name=,proto3" json:"item"`
+	}{item: "hello"}
+
+	name := getTagName(reflect.ValueOf(data).Type().Field(0).Tag)
+
+	assert.Equal(t, "item", name)
+}
+
+func Test_getTagName_InvalidProtoEmptyJsson_Json(t *testing.T) {
+	data := struct {
+		item string `protobuf:"bytes,2,opt,json=,proto3" json:"item"`
 	}{item: "hello"}
 
 	name := getTagName(reflect.ValueOf(data).Type().Field(0).Tag)
