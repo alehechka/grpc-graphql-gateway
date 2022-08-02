@@ -25,8 +25,8 @@ lint:
 	golangci-lint run
 
 test:
-	cd runtime/tests ; make build
-	go list ./... | xargs go test
+	cd runtime/testpb ; make build
+	go test ./... --cover
 
 build: test plugin
 

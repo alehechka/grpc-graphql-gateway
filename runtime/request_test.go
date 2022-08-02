@@ -1,13 +1,14 @@
-package tests
+package runtime_test
 
 import (
 	"testing"
 
 	"github.com/alehechka/grpc-graphql-gateway/runtime"
+	"github.com/alehechka/grpc-graphql-gateway/runtime/testpb"
 	"github.com/stretchr/testify/assert"
 )
 
-func assertStruct(t *testing.T, s *A) {
+func assertStruct(t *testing.T, s *testpb.A) {
 	assert.NotNil(t, s)
 	assert.Equal(t, "string", s.StringValue)
 	assert.Equal(t, int64(1), s.IntValue)
@@ -41,7 +42,7 @@ func TestMarshalRequest(t *testing.T) {
 			"int_value":    1,
 			"string_slice": []string{"A", "B", "C"},
 		},
-		"struct_slice": []C{
+		"struct_slice": []testpb.C{
 			{
 				StringValue: "string01",
 				IntValue:    2,
@@ -52,7 +53,7 @@ func TestMarshalRequest(t *testing.T) {
 			},
 		},
 	}
-	var v A
+	var v testpb.A
 	err := runtime.MarshalRequest(data, &v)
 	assert.NoError(t, err)
 	assertStruct(t, &v)
@@ -68,7 +69,7 @@ func TestMarshalRequestWithCamelCaseInput(t *testing.T) {
 			"valueInt":    1,
 			"sliceString": []string{"A", "B", "C"},
 		},
-		"structSlice": []C{
+		"structSlice": []testpb.C{
 			{
 				StringValue: "string01",
 				IntValue:    2,
@@ -79,7 +80,7 @@ func TestMarshalRequestWithCamelCaseInput(t *testing.T) {
 			},
 		},
 	}
-	var v A
+	var v testpb.A
 	err := runtime.MarshalRequest(data, &v)
 	assert.NoError(t, err)
 	assertStruct(t, &v)
