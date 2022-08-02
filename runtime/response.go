@@ -2,7 +2,6 @@ package runtime
 
 import (
 	"reflect"
-	"strings"
 )
 
 func derefValue(v reflect.Value) reflect.Value {
@@ -76,24 +75,6 @@ func marshalStruct(v reflect.Value) map[string]interface{} {
 		}
 	}
 	return ret
-}
-
-func getTagName(tag reflect.StructTag) (name string) {
-
-	protoTag := tag.Get("protobuf")
-	options := strings.Split(protoTag, ",")
-
-	for _, option := range options {
-		if strings.HasPrefix(option, "name") {
-			name = option[5:]
-		}
-		if strings.HasPrefix(option, "json") {
-			name = option[5:]
-			break
-		}
-	}
-
-	return
 }
 
 type mapValue struct {
