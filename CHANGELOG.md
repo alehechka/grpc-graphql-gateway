@@ -2,9 +2,12 @@
 
 ## UNRELEASED
 
+## [v0.3.0](https://github.com/alehechka/grpc-graphql-gateway/releases/tag/v0.3.0)
+
 - Resolve camelCase enum values ([#13](https://github.com/alehechka/grpc-graphql-gateway/pull/13))
 - Remove field_camel and add field_proto CLI arg ([#14](https://github.com/alehechka/grpc-graphql-gateway/pull/14))
 - Refactor getTagName function ([#16](https://github.com/alehechka/grpc-graphql-gateway/pull/16))
+- GitHub Action Workflows - Publish tagged BSR repository ([#17](https://github.com/alehechka/grpc-graphql-gateway/pull/17))
 
 ## [v0.2.4](https://github.com/alehechka/grpc-graphql-gateway/releases/tag/v0.2.4)
 

@@ -62,3 +62,19 @@ jobs:
             RELEASE_VERSION=${{ github.ref_name }}
             GO_PROTOBUF_RELEASE_VERSION=${{ steps.protobuf-version.outputs.version }}
             GO_GRPC_RELEASE_VERSION=${{ steps.grpc-version.outputs.version }}
+
+  push_bsr_repo:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: bufbuild/buf-setup-action@v1
+
+      - name: Build Protobuf sources
+        run: buf build
+        working-directory: proto
+
+      - name: Push Repository
+        run: BUF_TOKEN="${{ secrets.BUF_BUILD_TOKEN }}" buf push --tag "${{ github.ref_name }}"
+        working-directory: proto/grpc-graphql-gateway
