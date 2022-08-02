@@ -11,20 +11,23 @@ import (
 	"google.golang.org/protobuf/runtime/protoiface"
 )
 
-// TODO: get this working correctly
-func MarshalProtoResponse(message protoiface.MessageV1) (interface{}, error) {
-	marshaler := jsonpb.Marshaler{EnumsAsInts: true}
+// TODO: get this working correctly (also add back in `error` second return param)
+func MarshalProtoResponse(message protoiface.MessageV1) interface{} {
+	marshaler := jsonpb.Marshaler{EnumsAsInts: true, EmitDefaults: true}
 
 	buf := new(bytes.Buffer)
 	if err := marshaler.Marshal(buf, message); err != nil {
-		return nil, err
+		return nil
 	}
 
 	var data interface{}
 	err := json.NewDecoder(buf).Decode(&data)
+	if err != nil {
+		return nil
+	}
 
-	fmt.Printf("%#v", data)
-	return data, err
+	fmt.Printf("%#v\n", data)
+	return data
 }
 
 func derefValue(v reflect.Value) reflect.Value {
@@ -97,6 +100,8 @@ func marshalStruct(v reflect.Value) map[string]interface{} {
 			ret[name] = primitive(vv)
 		}
 	}
+
+	fmt.Printf("%#v\n", ret)
 	return ret
 }
 
